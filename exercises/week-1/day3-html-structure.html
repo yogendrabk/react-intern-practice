@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 3: Semantic HTML Practice - Tech News Article</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+
+        /* Header styling */
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        header .logo {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        /* Navigation styling */
+        nav {
+            margin-top: 10px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #3498db;
+        }
+
+        /* Main container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            gap: 20px;
+        }
+
+        /* Main content area */
+        main {
+            flex: 3;
+        }
+
+        article {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        article h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+
+        .article-meta {
+            color: #7f8c8d;
+            font-size: 14px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ecf0f1;
+            padding-bottom: 10px;
+        }
+
+        article p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        /* Aside (sidebar) styling */
+        aside {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            height: fit-content;
+        }
+
+        aside h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        aside ul {
+            list-style: none;
+        }
+
+        aside li {
+            margin-bottom: 10px;
+            padding: 8px;
+            background-color: #ecf0f1;
+            border-radius: 4px;
+        }
+
+        aside a {
+            color: #3498db;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        aside a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer styling */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        /* Code section styling */
+        .education-section {
+            background-color: #ecf0f1;
+            padding: 20px;
+            margin-top: 20px;
+            border-left: 4px solid #3498db;
+            border-radius: 4px;
+        }
+
+        .education-section h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .education-section code {
+            background-color: #34495e;
+            color: #ecf0f1;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 
+    ============================================
+    SEMANTIC HTML EXPLANATION AND USE
+    ============================================
+    
+    What is Semantic HTML?
+    Semantic HTML mean using HTML tags that have MEANING and DESCRIBE the content.
+    Instead of using <div> for everything, we using specific tags like:
+    - <header> for top section with logo and navigation
+    - <nav> for navigation links
+    - <main> for main content
+    - <article> for article content
+    - <aside> for sidebar content
+    - <section> for grouping related content
+    - <footer> for bottom section
+    
+    Why Semantic HTML important?
+    1. SEO (Search Engine Optimization): Search engine crawlers understanding page better.
+       Search engine see <article> and know this important content, not just <div>.
+    
+    2. Accessibility: Screen reader (tool for blind person) understanding structure better.
+       Person with disability can navigate page easier.
+    
+    3. Readability: Other developer reading code understanding what each section doing.
+       Code more maintainable.
+    
+    4. Good Practice: It standard way professional web developer writing HTML.
+       
+    Difference between <div> and Semantic Tags:
+    - <div> = Just container, no meaning. Search engine not knowing what inside.
+    - <header> = Meaningful container. Tell search engine this header section.
+    - <article> = Meaningful container. Tell search engine this article content.
+    - <footer> = Meaningful container. Tell search engine this footer information.
+    
+    In old way (BAD):
+    ```
+    <div id="header">...</div>
+    <div id="nav">...</div>
+    <div id="main">...</div>
+    <div id="sidebar">...</div>
+    <div id="footer">...</div>
+    ```
+    
+    In new way (GOOD):
+    ```
+    <header>...</header>
+    <nav>...</nav>
+    <main>...</main>
+    <aside>...</aside>
+    <footer>...</footer>
+    ```
+    
+    New way much better!
+    ============================================
+    -->
+
+    <!-- HEADER SECTION with LOGO and NAVIGATION -->
+    <!-- <header> is semantic tag meaning top section of website with site info -->
+    <header>
+        <div class="container" style="max-width: 100%;">
+            <div class="logo">🚀 TechNews Daily</div>
+            <!-- <nav> is semantic tag meaning navigation section with links -->
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#tech">Technology</a></li>
+                    <li><a href="#business">Business</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <div class="container">
+        <!-- MAIN CONTENT AREA -->
+        <!-- <main> is semantic tag meaning main content of page. Only one per page! -->
+        <main>
+            <!-- ARTICLE SECTION -->
+            <!-- <article> is semantic tag meaning independent, complete content like blog post, news article -->
+            <article>
+                <h2>React 19 Released: What Developers Need to Know</h2>
+                
+                <!-- Article metadata: date, author, category -->
+                <div class="article-meta">
+                    <strong>Published:</strong> December 10, 2025 | 
+                    <strong>Author:</strong> Yogendra Bk | 
+                    <strong>Category:</strong> Web Development
+                </div>
+
+                <!-- Article paragraphs -->
+                <p>
+                    React 19 is released today with significant improvements and new feature. 
+                    The latest version introducing Server Component more widely, making it easier 
+                    for developer to build fast, interactive application. This release mark important 
+                    step in React evolution, bringing framework closer to native application development 
+                    experience.
+                </p>
+
+                <p>
+                    One of major feature in React 19 is improved performance. The virtual DOM 
+                    algorithm now more efficient, reducing unnecessary re-render. This meaning 
+                    application will feel faster and responsive to user interaction. Developer can 
+                    now building large-scale application without worrying about performance degradation.
+                </p>
+
+                <p>
+                    New documentation released alongside React 19 focusing on best practice and 
+                    modern pattern. Team recommend all new project using React 19, and upgrading 
+                    old project when possible. React 19 backward compatible with most existing code, 
+                    making migration smooth for most developer.
+                </p>
+
+                <!-- SECTION inside ARTICLE -->
+                <!-- <section> is semantic tag grouping related content -->
+                <section class="education-section">
+                    <h4>💡 Developer Tip - Why Semantic HTML Matters</h4>
+                    <p>
+                        When you seeing above structure with <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, 
+                        <code>&lt;main&gt;</code>, <code>&lt;article&gt;</code>, and <code>&lt;footer&gt;</code>, 
+                        you understanding immediately what each part doing. Search engine also understanding, 
+                        and if user have screen reader disability, they can navigate better. Use semantic HTML 
+                        marking you as professional developer!
+                    </p>
+                </section>
+            </article>
+        </main>
+
+        <!-- SIDEBAR - ASIDE SECTION -->
+        <!-- <aside> is semantic tag meaning content related to main content but separate, like sidebar -->
+        <aside>
+            <h3>📰 Related Articles</h3>
+            <ul>
+                <li>
+                    <a href="#">React Hook: useTransition Explain</a>
+                </li>
+                <li>
+                    <a href="#">Server Component: Complete Guide</a>
+                </li>
+                <li>
+                    <a href="#">Performance Optimization in React</a>
+                </li>
+                <li>
+                    <a href="#">React Testing Library Best Practice</a>
+                </li>
+                <li>
+                    <a href="#">State Management: Redux vs Zustand</a>
+                </li>
+            </ul>
+
+            <div class="education-section" style="margin-top: 20px;">
+                <h4>🎓 Defense Question</h4>
+                <p><strong>Q: Semantic HTML bhanne ke ho?</strong></p>
+                <p>
+                    <strong>A:</strong> Semantic HTML mean using HTML tag that have meaning. 
+                    Instead of using div for everything, we using meaningful tag like header, nav, main, 
+                    article, aside, footer. This helping search engine understand page better (SEO), 
+                    helping screen reader for accessibility, and make code more readable.
+                </p>
+                
+                <p style="margin-top: 15px;"><strong>Q: <code>&lt;div&gt;</code> ra <code>&lt;article&gt;</code> ko difference ke ho?</strong></p>
+                <p>
+                    <strong>A:</strong> Both are container but article is semantic tag meaning 
+                    independent content. div is just generic container with no meaning. 
+                    Search engine understanding article contain important content, but just ignore div. 
+                    For accessibility, screen reader user knowing article is article when using article tag.
+                </p>
+            </div>
+        </aside>
+    </div>
+
+    <!-- FOOTER SECTION -->
+    <!-- <footer> is semantic tag meaning bottom section with copyright, footer info -->
+    <footer>
+        <p>&copy; 2025 TechNews Daily. All right reserved. | Made during React Internship at Tech Yatra Private Limited</p>
+        <p>Yogendra BK - Week 1 Exercise | December 10, 2025</p>
+    </footer>
+
+</body>
+</html>
