@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 4: CSS Box Model Practice - Interactive Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 36px;
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 16px;
+        }
+
+        /* ===================================================
+           EXPLANATION SECTION
+           =================================================== */
+        .explanation {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .explanation h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .explanation p {
+            color: #333;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+
+        .box-model-text {
+            background: #f8f9fa;
+            padding: 15px;
+            border-left: 4px solid #667eea;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* ===================================================
+           BOX MODEL VISUAL DIAGRAM
+           =================================================== */
+        .diagram-section {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .diagram-section h2 {
+            color: #667eea;
+            margin-bottom: 30px;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        .box-model-diagram {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        /* Margin layer (outermost) */
+        .margin-box {
+            background: linear-gradient(45deg, #ff6b6b, #ffa500);
+            padding: 20px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .margin-label {
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        /* Border layer */
+        .border-box {
+            background: linear-gradient(45deg, #4ecdc4, #44a5c2);
+            padding: 20px;
+            border-radius: 4px;
+        }
+
+        /* Padding layer */
+        .padding-box {
+            background: linear-gradient(45deg, #ffe66d, #ffc93c);
+            padding: 20px;
+            border-radius: 4px;
+        }
+
+        /* Content layer (innermost) */
+        .content-box {
+            background: linear-gradient(45deg, #95e1d3, #38a89e);
+            padding: 20px;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 4px;
+            min-width: 150px;
+        }
+
+        /* Legend */
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .legend-box {
+            width: 30px;
+            height: 30px;
+            border-radius: 3px;
+        }
+
+        .legend-margin {
+            background: linear-gradient(45deg, #ff6b6b, #ffa500);
+        }
+
+        .legend-border {
+            background: linear-gradient(45deg, #4ecdc4, #44a5c2);
+        }
+
+        .legend-padding {
+            background: linear-gradient(45deg, #ffe66d, #ffc93c);
+        }
+
+        .legend-content {
+            background: linear-gradient(45deg, #95e1d3, #38a89e);
+        }
+
+        /* ===================================================
+           CARD EXAMPLES SECTION
+           =================================================== */
+        .cards-section {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .cards-section h2 {
+            color: #667eea;
+            margin-bottom: 30px;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        .cards-container {
+            display: flex;
+            justify-content: space-around;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(102, 126, 234, 0.3);
+        }
+
+        .card.highlighted {
+            border-color: #ff6b6b;
+            background: #fff5f5;
+        }
+
+        /* Card 1: No Padding */
+        .card-noPadding {
+            padding: 0;
+        }
+
+        .card-noPadding .card-content {
+            background: #667eea;
+            color: white;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Card 2: With Padding */
+        .card-withPadding {
+            padding: 20px;
+        }
+
+        .card-withPadding .card-content {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Card 3: With Margin */
+        .card-withMargin {
+            margin: 15px;
+            padding: 20px;
+        }
+
+        .card-withMargin .card-content {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .card-description {
+            font-size: 12px;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        /* ===================================================
+           DEFENSE SECTION
+           =================================================== */
+        .defense-section {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .defense-section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .qa-item {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .qa-item:last-child {
+            border-bottom: none;
+        }
+
+        .qa-item strong {
+            color: #667eea;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .qa-item p {
+            color: #333;
+            line-height: 1.8;
+            margin-left: 10px;
+        }
+
+        .code-example {
+            background: #f8f9fa;
+            padding: 15px;
+            border-left: 3px solid #667eea;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 24px;
+            }
+
+            .cards-container {
+                flex-direction: column;
+            }
+
+            .card {
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📦 CSS Box Model - Interactive Practice</h1>
+        <p class="subtitle">Day 4 Exercise - Understanding content, padding, border, and margin</p>
+
+        <!-- EXPLANATION SECTION -->
+        <div class="explanation">
+            <h2>🎓 Box Model Explanation</h2>
+            <p>
+                CSS Box Model is fundamental concept in web design. Every element in HTML have box around it consisting of 4 layer:
+            </p>
+            <p>
+                <strong>1. MARGIN</strong> - Outside spacing. Space between this element and neighbor element. Internet is transparent.
+            </p>
+            <p>
+                <strong>2. BORDER</strong> - Line around element. Can have color, style (solid, dashed, etc), and thickness.
+            </p>
+            <p>
+                <strong>3. PADDING</strong> - Inside spacing. Space between content and border. Inside element.
+            </p>
+            <p>
+                <strong>4. CONTENT</strong> - Actual content (text, image, etc) of element. Innermost layer.
+            </p>
+
+            <div class="box-model-text">
+                total width = content width + padding-left + padding-right + border-left + border-right + margin-left + margin-right
+            </div>
+
+            <p>
+                <strong>Important:</strong> By default, when you set width: 200px, it only set content width. 
+                Padding, border, margin add on TOP of this! This can confusing.
+                Solution: Use <code>box-sizing: border-box</code> - make width include padding and border.
+            </p>
+        </div>
+
+        <!-- BOX MODEL VISUAL DIAGRAM -->
+        <div class="diagram-section">
+            <h2>📐 Box Model Visual Diagram</h2>
+            <div class="box-model-diagram">
+                <div class="margin-box">
+                    <div class="margin-label">MARGIN</div>
+                    <div class="border-box">
+                        <div class="margin-label" style="color: white;">BORDER</div>
+                        <div class="padding-box">
+                            <div class="margin-label" style="color: white;">PADDING</div>
+                            <div class="content-box">
+                                CONTENT
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-box legend-margin"></div>
+                    <span>Margin (outside space)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box legend-border"></div>
+                    <span>Border (line)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box legend-padding"></div>
+                    <span>Padding (inside space)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box legend-content"></div>
+                    <span>Content (actual element)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- INTERACTIVE CARD EXAMPLES -->
+        <div class="cards-section">
+            <h2>🎯 Interactive Card Examples - Click to Highlight</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 20px;">Click on card to highlight and see effect</p>
+
+            <div class="cards-container">
+                <!-- Card 1: No Padding -->
+                <div class="card card-noPadding" onclick="toggleHighlight(this)">
+                    <div class="card-title">❌ No Padding</div>
+                    <div class="card-content">
+                        Text squeezed against border!
+                    </div>
+                    <div class="card-description">
+                        padding: 0px - Text touching border directly, look uncomfortable
+                    </div>
+                </div>
+
+                <!-- Card 2: With Padding -->
+                <div class="card card-withPadding" onclick="toggleHighlight(this)">
+                    <div class="card-title">✅ With Padding</div>
+                    <div class="card-content">
+                        Text has breathing room!
+                    </div>
+                    <div class="card-description">
+                        padding: 20px - Text have space from border, look better
+                    </div>
+                </div>
+
+                <!-- Card 3: With Margin -->
+                <div class="card card-withMargin" onclick="toggleHighlight(this)">
+                    <div class="card-title">🚀 With Margin</div>
+                    <div class="card-content">
+                        Card have space from neighbor!
+                    </div>
+                    <div class="card-description">
+                        margin: 15px - Space between this card and other card
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DEFENSE QUESTIONS SECTION -->
+        <div class="defense-section">
+            <h2>🛡️ Defense Questions & Answers</h2>
+
+            <div class="qa-item">
+                <strong>Q: CSS box model explain gara? (Explain CSS box model)</strong>
+                <p>
+                    A: CSS Box Model consisting of 4 layer: MARGIN (outside spacing), BORDER (line around), 
+                    PADDING (inside spacing), CONTENT (actual element). Think like book: MARGIN = space from table edge, 
+                    BORDER = book cover, PADDING = margin inside book cover, CONTENT = actual text in book.
+                    Understanding box model important for layout and sizing element correctly.
+                </p>
+            </div>
+
+            <div class="qa-item">
+                <strong>Q: box-sizing: border-box kina use garchau? (Why do I use box-sizing: border-box?)</strong>
+                <p>
+                    A: By default, when I set width: 200px, it only including content width. 
+                    Padding and border add on top, so total width become more than 200px. 
+                    This confusing! With box-sizing: border-box, width include padding and border. 
+                    So width always exactly 200px. Easier to calculate and predict layout.
+                </p>
+                <div class="code-example">
+                    /* Without border-box */
+<br>
+                    width: 200px; padding: 10px; /* Total = 220px */
+<br>
+                    <br>
+                    /* With border-box */
+<br>
+                    box-sizing: border-box;<br>
+                    width: 200px; padding: 10px; /* Total = 200px */
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <strong>Q: Difference between margin and padding ke ho? (What is difference between margin and padding?)</strong>
+                <p>
+                    A: MARGIN = outside space, creating distance between this element and neighbor element. 
+                    Does not have background color (transparent). PADDING = inside space, creating distance 
+                    between content and border. Have background color of element. Think like: margin pushing neighbor away, 
+                    padding giving breathing room to content.
+                </p>
+            </div>
+
+            <div class="qa-item">
+                <strong>Q: Element ko width 300px set garyo, but screen ma 350px dekhiyo. Kina? (Why is width different?)</strong>
+                <p>
+                    A: This happen because of box model! If me set width: 300px, padding: 20px, border: 5px, 
+                    then total width = 300 + 20 + 20 + 5 + 5 = 350px. This called "content-box" (default). 
+                    Solution: Add box-sizing: border-box so 300px include padding and border.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===================================================
+        // JAVASCRIPT: Interactive highlight functionality
+        // ===================================================
+        // When user click on card, add border-color change using classList.toggle
+        
+        function toggleHighlight(element) {
+            // Toggle mean: if highlighted class not there, add it. If there, remove it.
+            element.classList.toggle('highlighted');
+            
+            // Console feedback (can see in browser Developer Tools - Console tab)
+            console.log('Card clicked! Currently highlighted: ' + element.classList.contains('highlighted'));
+        }
+
+        // Alternative: can also do this with addEventListener
+        // document.querySelectorAll('.card').forEach(card => {
+        //     card.addEventListener('click', function() {
+        //         this.classList.toggle('highlighted');
+        //     });
+        // });
+    </script>
+
+    <!-- 
+    ===================================================
+    DEFENSE NOTE - CSS Box Model Concept
+    ===================================================
+    
+    Key Point: Box model affect how browser calculate element size and position.
+    Misunderstanding box model = layout breaking, frustration.
+    Master box model = control layout easily.
+    
+    Remember:
+    1. Content = actual element (text, image, etc)
+    2. Padding = breathing room inside (transparent background color of element)
+    3. Border = line around element
+    4. Margin = space outside (transparent, push neighbor away)
+    
+    Always use: box-sizing: border-box on all element (put in * selector)
+    This make calculation simpler and layout more predictable.
+    
+    ===================================================
+    -->
+</body>
+</html>
