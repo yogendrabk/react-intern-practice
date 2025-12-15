@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 6: Flexbox Deep Dive - Real World Patterns</title>
+    <style>
+        /* ===================================================
+           RESET & GLOBAL STYLES
+           =================================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        section {
+            margin: 20px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .pattern-label {
+            background: #e8f4f8;
+            padding: 10px;
+            border-left: 4px solid #3498db;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        code {
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+
+        /* ===================================================
+           PATTERN 1: HORIZONTAL NAVIGATION BAR
+           Why this work: flex-direction row (default), justify-content space-between
+           put logo left and nav right. align-items center vertical align.
+           =================================================== */
+        nav {
+            display: flex;              /* Enable flexbox */
+            justify-content: space-between;  /* Logo left, links right */
+            align-items: center;        /* Vertically centered */
+            padding: 1rem;
+            background: #2c3e50;
+            color: white;
+            border-radius: 4px;
+        }
+
+        nav .logo {
+            font-size: 24px;
+            font-weight: bold;
+            flex-grow: 0;               /* Don't grow */
+            flex-shrink: 0;             /* Don't shrink */
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;                  /* Space between links */
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #3498db;
+        }
+
+        /* ===================================================
+           PATTERN 2: CENTERED LOGIN CARD
+           Why this work: Full screen container with display flex,
+           justify-content center, align-items center = perfect center.
+           min-height: 100vh make container full viewport height.
+           =================================================== */
+        .login-container {
+            display: flex;              /* Enable flexbox */
+            justify-content: center;    /* Center horizontally */
+            align-items: center;        /* Center vertically */
+            min-height: 400px;          /* Full height */
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 4px;
+        }
+
+        .login-card {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-card h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .login-card button {
+            width: 100%;
+            padding: 12px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* ===================================================
+           PATTERN 3: RESPONSIVE CARD GRID WITH FLEX-WRAP
+           Why this work: flex-wrap: wrap let items go next line.
+           flex: 1 1 250px mean: grow if space, shrink if tight,
+           but try be at least 250px. On small screen wrap, large screen stretch.
+           =================================================== */
+        .card-grid {
+            display: flex;
+            flex-wrap: wrap;            /* Allow items wrap to next line */
+            gap: 1rem;                  /* Space between items */
+        }
+
+        .card {
+            flex: 1 1 250px;            /* Grow, shrink, minimum 250px */
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 150px;
+        }
+
+        .card-body {
+            padding: 15px;
+        }
+
+        .card-title {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+
+        .card-text {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* ===================================================
+           PATTERN 4: MEDIA OBJECT (Image Left, Text Right)
+           Why this work: display flex with align-items flex-start.
+           Image with flex-shrink: 0 keep exact size.
+           Text with flex: 1 take remaining space.
+           gap put space between.
+           =================================================== */
+        .media-object {
+            display: flex;              /* Enable flexbox */
+            gap: 1rem;                  /* Space between image and text */
+            align-items: flex-start;    /* Align to top */
+        }
+
+        .media-image {
+            flex-shrink: 0;             /* Never shrink - keep 100px */
+            width: 100px;
+            height: 100px;
+            background: #3498db;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+        }
+
+        .media-content {
+            flex: 1;                    /* Take all remaining space */
+        }
+
+        .media-title {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+
+        .media-text {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* ===================================================
+           PATTERN 5: STICKY FOOTER LAYOUT
+           Why this work: Body display flex, flex-direction column.
+           Main with flex: 1 take all remaining space.
+           Content push footer to bottom even if page short.
+           =================================================== */
+        .sticky-footer-demo {
+            display: flex;              /* Enable flexbox */
+            flex-direction: column;     /* Vertical stacking */
+            min-height: 300px;          /* Minimum height */
+            background: white;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .sticky-header {
+            background: #2c3e50;
+            color: white;
+            padding: 15px;
+            flex-shrink: 0;             /* Don't shrink */
+        }
+
+        .sticky-main {
+            flex: 1;                    /* Take all remaining space */
+            padding: 15px;
+            overflow-y: auto;
+        }
+
+        .sticky-footer {
+            background: #34495e;
+            color: white;
+            padding: 15px;
+            flex-shrink: 0;             /* Don't shrink */
+            border-top: 1px solid #2c3e50;
+        }
+
+        /* ===================================================
+           DEFENSE NOTES & COMMENTS
+           =================================================== */
+        .explanation {
+            background: #f0f7ff;
+            padding: 15px;
+            border-left: 4px solid #3498db;
+            margin: 15px 0;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .explanation strong {
+            color: #2c3e50;
+        }
+
+        .warning {
+            background: #fff3cd;
+            padding: 12px;
+            border-left: 4px solid #ffc107;
+            border-radius: 4px;
+            margin: 15px 0;
+            font-size: 13px;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .card-grid {
+                flex-direction: column;
+            }
+
+            .card {
+                flex: 1 1 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div style="max-width: 1200px; margin: 0 auto; padding: 20px;">
+        <h1>📦 Flexbox Deep Dive — Real World Patterns</h1>
+        <p style="color: #666; margin-bottom: 20px;">Day 6 Exercise: Learning Flexbox through practical, real-world UI patterns</p>
+
+        <!-- ===================================================
+             PATTERN 1: NAVIGATION BAR
+             =================================================== -->
+        <section>
+            <h2>Pattern 1: Horizontal Navigation Bar</h2>
+            <div class="pattern-label">💡 What Learn: flex-direction (row), justify-content (space-between), align-items (center)</div>
+
+            <nav>
+                <div class="logo">🚀 TechCorp</div>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="explanation">
+                <strong>How work:</strong>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><code>display: flex</code> — Enable flexbox on nav</li>
+                    <li><code>flex-direction: row</code> — Items in row (default, can omit)</li>
+                    <li><code>justify-content: space-between</code> — Logo far left, nav far right</li>
+                    <li><code>align-items: center</code> — Everything vertically middle</li>
+                    <li><code>gap: 2rem on ul</code> — Space between links</li>
+                </ul>
+                <p style="margin-top: 10px;"><strong>Why useful:</strong> Navigation bar is most common pattern. Logo one side, menu other side, everything aligned perfectly.</p>
+            </div>
+        </section>
+
+        <!-- ===================================================
+             PATTERN 2: CENTERED LOGIN CARD
+             =================================================== -->
+        <section>
+            <h2>Pattern 2: Perfectly Centered Login Card</h2>
+            <div class="pattern-label">💡 What Learn: justify-content (center), align-items (center), min-height</div>
+
+            <div class="login-container">
+                <div class="login-card">
+                    <h3>Login</h3>
+                    <div class="form-group">
+                        <input type="email" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" placeholder="Password">
+                    </div>
+                    <button>Sign In</button>
+                </div>
+            </div>
+
+            <div class="explanation">
+                <strong>How work:</strong>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><code>display: flex</code> — Enable flexbox on container</li>
+                    <li><code>justify-content: center</code> — Center items horizontally</li>
+                    <li><code>align-items: center</code> — Center items vertically</li>
+                    <li><code>min-height: 400px</code> — Give container height to center in</li>
+                </ul>
+                <p style="margin-top: 10px;"><strong>Why useful:</strong> Login card, modals, any center dialog need perfect center? Flexbox do it in 2 line!</p>
+            </div>
+        </section>
+
+        <!-- ===================================================
+             PATTERN 3: RESPONSIVE CARD GRID
+             =================================================== -->
+        <section>
+            <h2>Pattern 3: Responsive Card Grid with Auto-Wrap</h2>
+            <div class="pattern-label">💡 What Learn: flex-wrap (wrap), flex (grow shrink basis)</div>
+
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-header"></div>
+                    <div class="card-body">
+                        <div class="card-title">Card 1</div>
+                        <div class="card-text">This card auto-wrap on small screen, stretch on large screen</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header"></div>
+                    <div class="card-body">
+                        <div class="card-title">Card 2</div>
+                        <div class="card-text">flex: 1 1 250px mean grow, shrink, but min 250px</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header"></div>
+                    <div class="card-body">
+                        <div class="card-title">Card 3</div>
+                        <div class="card-text">On small screen 1 card per row, on big screen multiple</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header"></div>
+                    <div class="card-body">
+                        <div class="card-title">Card 4</div>
+                        <div class="card-text">Resize window to see how wrap working</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="explanation">
+                <strong>How work:</strong>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><code>display: flex</code> on grid</li>
+                    <li><code>flex-wrap: wrap</code> — Items can go next line instead of shrink</li>
+                    <li><code>gap: 1rem</code> — Space between all items</li>
+                    <li><code>flex: 1 1 250px on card</code> — KEY PART!</li>
+                </ul>
+                <p style="margin-top: 10px;"><strong>Breaking down flex: 1 1 250px:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 5px;">
+                    <li>First <code>1</code> = flex-grow: 1 (grow if extra space)</li>
+                    <li>Second <code>1</code> = flex-shrink: 1 (shrink if space tight)</li>
+                    <li><code>250px</code> = flex-basis: 250px (natural size before grow/shrink)</li>
+                </ul>
+                <p style="margin-top: 10px;"><strong>Result:</strong> Each card try be 250px, if space available grow equal, if tight wrap to next line</p>
+            </div>
+        </section>
+
+        <!-- ===================================================
+             PATTERN 4: MEDIA OBJECT
+             =================================================== -->
+        <section>
+            <h2>Pattern 4: Media Object Pattern (Image Left, Text Right)</h2>
+            <div class="pattern-label">💡 What Learn: flex-shrink (0), flex (1 for content)</div>
+
+            <div class="media-object">
+                <div class="media-image">🖼️ Image</div>
+                <div class="media-content">
+                    <div class="media-title">Media Object Title</div>
+                    <div class="media-text">
+                        This pattern use flex perfectly! Image always 100px (flex-shrink: 0). 
+                        Text take remaining space (flex: 1). When container shrink, image stay size, text shrink. 
+                        Very common in social media posts, comments, notifications.
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <div class="media-object">
+                    <div class="media-image">👤 User</div>
+                    <div class="media-content">
+                        <div class="media-title">Another Example</div>
+                        <div class="media-text">
+                            You seeing this pattern everywhere: user avatar on left, comment on right. 
+                            Flexbox make this super easy and responsive!
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="explanation">
+                <strong>How work:</strong>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><code>display: flex</code> on media-object</li>
+                    <li><code>gap: 1rem</code> — Space between image and text</li>
+                    <li><code>flex-shrink: 0 on image</code> — IMPORTANT! Image stay exactly 100px, never shrink</li>
+                    <li><code>flex: 1 on content</code> — Text take all remaining space</li>
+                </ul>
+                <p style="margin-top: 10px;"><strong>Why useful:</strong> Super common pattern in UI. Every social post, every comment, every notification use this pattern!</p>
+            </div>
+        </section>
+
+        <!-- ===================================================
+             PATTERN 5: STICKY FOOTER
+             =================================================== -->
+        <section>
+            <h2>Pattern 5: Sticky Footer Layout</h2>
+            <div class="pattern-label">💡 What Learn: flex-direction (column), flex: 1 for main content</div>
+
+            <div class="sticky-footer-demo">
+                <div class="sticky-header">Header - Stay at Top</div>
+                <div class="sticky-main">
+                    <p><strong>Main Content Area</strong></p>
+                    <p>This area with flex: 1 take all remaining space. If content short, footer push to bottom. If content long, footer still at bottom but you scroll main area.</p>
+                    <p>This pattern guarantee footer always visible at bottom, never floating in middle.</p>
+                </div>
+                <div class="sticky-footer">Footer - Always at Bottom</div>
+            </div>
+
+            <div class="explanation">
+                <strong>How work:</strong>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><code>display: flex</code> on container</li>
+                    <li><code>flex-direction: column</code> — Stack items vertically</li>
+                    <li><code>min-height: 300px</code> — Container have height</li>
+                    <li><code>flex: 1 on main</code> — Main content area grow, push footer to bottom</li>
+                    <li><code>flex-shrink: 0 on footer</code> — Footer keep its height, don't compress</li>
+                </ul>
+                <p style="margin-top: 10px;"><strong>Why useful:</strong> Every website want footer at bottom. With flexbox, 5 line CSS solve it forever!</p>
+            </div>
+        </section>
+
+        <!-- ===================================================
+             DEFENSE QUESTIONS
+             =================================================== -->
+        <section style="background: #fff3e0;">
+            <h2>🛡️ Defense Questions & Answers</h2>
+
+            <div style="margin-bottom: 20px;">
+                <strong>Q: Flexbox bhanne ke ho? (What is Flexbox?)</strong>
+                <p style="margin-top: 10px; color: #333;">
+                    A: Flexbox is CSS layout system for one-dimensional layout (row OR column, not both). 
+                    Perfect for navigation, centering, spacing items. You have flex-container (parent with display: flex) 
+                    and flex-items (children). Container controlling how items distributed, spaced, aligned.
+                </p>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <strong>Q: justify-content ra align-items ko difference ke ho? (What difference between justify-content and align-items?)</strong>
+                <p style="margin-top: 10px; color: #333;">
+                    A: Both for alignment but different direction. If flex-direction: row (horizontal):
+                </p>
+                <ul style="margin-left: 20px; margin-top: 5px; color: #333;">
+                    <li><code>justify-content</code> = Align horizontally (main axis)</li>
+                    <li><code>align-items</code> = Align vertically (cross axis)</li>
+                </ul>
+                <p style="margin-top: 10px; color: #333;">
+                    If flex-direction: column (vertical): reverse — justify-content vertical, align-items horizontal.
+                </p>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <strong>Q: flex: 1 1 250px matlab ke ho? ko-ko meaning? (What does flex: 1 1 250px mean?)</strong>
+                <p style="margin-top: 10px; color: #333;">
+                    A: This shorthand for three property:
+                </p>
+                <ul style="margin-left: 20px; margin-top: 5px; color: #333;">
+                    <li>First 1 = flex-grow: 1 (If container have extra space, grow 1 part of it)</li>
+                    <li>Second 1 = flex-shrink: 1 (If container space tight, shrink 1 part)</li>
+                    <li>250px = flex-basis: 250px (Natural size before grow/shrink)</li>
+                </ul>
+                <p style="margin-top: 10px; color: #333;">
+                    <strong>Real example:</strong> If 4 card with flex: 1 1 250px in 1000px container: 
+                    Each try 250px (total 1000px). Perfect! All equal size.
+                    In 600px container: Each 150px (shrink equally).
+                </p>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <strong>Q: flex-wrap: wrap kina use garchau? (Why use flex-wrap: wrap?)</strong>
+                <p style="margin-top: 10px; color: #333;">
+                    A: By default flex-wrap: nowrap (all items in single line, squeeze if need). 
+                    With flex-wrap: wrap, items go next line instead of squeeze. Perfect for responsive card grid. 
+                    On big screen 4 cards in row. On small screen wrap to 2 cards, then 1 card.
+                </p>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- 
+    ===================================================
+    DEFENSE NOTES - Flexbox Concepts
+    ===================================================
+    
+    MOST IMPORTANT CONCEPT:
+    Main Axis vs Cross Axis
+    - If flex-direction: row → main axis horizontal (left-right), cross axis vertical (up-down)
+    - If flex-direction: column → main axis vertical (up-down), cross axis horizontal (left-right)
+    - justify-content affect main axis
+    - align-items affect cross axis
+    
+    COMMON PATTERNS:
+    1. Navigation: flex-direction row (default), justify-content space-between
+    2. Centered modal: justify-content center + align-items center
+    3. Card grid: flex-wrap wrap + flex: 1 1 minsize
+    4. Media object: Image flex-shrink: 0, content flex: 1
+    5. Sticky footer: flex-direction column, main flex: 1
+    
+    THE FLEX PROPERTY:
+    flex: <grow> <shrink> <basis>
+    - Default: flex: 0 1 auto (don't grow, can shrink, respect content)
+    - For equal growth: flex: 1 (all grow equal if extra space)
+    - For responsive grid: flex: 1 1 250px (grow, shrink, but try 250px min)
+    
+    FLEXBOX vs GRID:
+    - Flexbox: 1D (row OR column), "distribute these items fairly"
+    - Grid: 2D (rows AND columns), "place items in specific positions"
+    
+    ===================================================
+    -->
+
+</body>
+</html>
