@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 7: CSS Grid Layout - Deep Dive</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        section {
+            max-width: 1200px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .pattern-label {
+            background: #e8f4f8;
+            padding: 10px;
+            border-left: 4px solid #3498db;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        code {
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+
+        .explanation {
+            background: #f0f7ff;
+            padding: 15px;
+            border-left: 4px solid #3498db;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        /* ===================================================
+           PATTERN 1: NEWSPAPER LAYOUT WITH grid-template-areas
+           =================================================== */
+        .newspaper {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            grid-template-rows: auto 1fr auto;
+            gap: 20px;
+            grid-template-areas:
+                "header header"
+                "main sidebar"
+                "footer footer";
+            min-height: 500px;
+        }
+
+        .newspaper-header {
+            grid-area: header;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 4px;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .newspaper-main {
+            grid-area: main;
+            background: white;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .article {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .article:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .article-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .article-text {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .newspaper-sidebar {
+            grid-area: sidebar;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        .sidebar-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .sidebar-item {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 10px;
+            padding: 8px;
+            background: white;
+            border-radius: 3px;
+        }
+
+        .newspaper-footer {
+            grid-area: footer;
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 4px;
+        }
+
+        /* ===================================================
+           PATTERN 2: MASONRY GRID WITH auto-rows + minmax()
+           =================================================== */
+        .masonry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            grid-auto-rows: minmax(200px, auto);
+        }
+
+        .masonry-item {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 4px;
+            padding: 20px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+            transition: transform 0.3s;
+        }
+
+        .masonry-item:hover {
+            transform: scale(1.05);
+        }
+
+        /* Some items span different sizes */
+        .masonry-item:nth-child(2) {
+            grid-column: span 1;
+            grid-row: span 2;
+        }
+
+        .masonry-item:nth-child(5) {
+            grid-column: span 2;
+        }
+
+        /* ===================================================
+           PATTERN 3: DASHBOARD ADMIN LAYOUT
+           =================================================== */
+        .dashboard {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            grid-template-rows: 80px 1fr;
+            gap: 0;
+            min-height: 600px;
+        }
+
+        .dashboard-top-nav {
+            grid-column: 1 / -1;
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .dashboard-logo {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .dashboard-sidebar {
+            background: #34495e;
+            color: white;
+            padding: 20px 0;
+            grid-column: 1;
+            grid-row: 2;
+        }
+
+        .sidebar-menu-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: background 0.3s;
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar-menu-item:hover {
+            background: #2c3e50;
+            border-left-color: #3498db;
+        }
+
+        .dashboard-content {
+            grid-column: 2;
+            grid-row: 2;
+            background: #f8f9fa;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        .dashboard-card {
+            background: white;
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .card-label {
+            color: #999;
+            font-size: 14px;
+        }
+
+        /* ===================================================
+           RESPONSIVE
+           =================================================== */
+        @media (max-width: 768px) {
+            .newspaper {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "header"
+                    "main"
+                    "sidebar"
+                    "footer";
+            }
+
+            .dashboard {
+                grid-template-columns: 1fr;
+                grid-template-rows: 80px 1fr;
+            }
+
+            .dashboard-sidebar {
+                display: none;
+            }
+
+            .dashboard-content {
+                grid-column: 1;
+            }
+
+            .masonry-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div style="max-width: 1200px; margin: 0 auto;">
+        <h1>📋 CSS Grid Layout - Deep Dive</h1>
+        <p style="color: #666; margin-bottom: 30px;">Day 7: Learning CSS Grid through real-world layout patterns</p>
+
+        <!-- ===================================================
+             PATTERN 1: NEWSPAPER LAYOUT
+             =================================================== -->
+        <section>
+            <h2>Pattern 1: Newspaper Layout with grid-template-areas</h2>
+            <div class="pattern-label">💡 What Learn: grid-template-areas, named grid regions</div>
+
+            <div class="explanation">
+                <strong>Understanding grid-template-areas:</strong>
+                <p style="margin-top: 10px;">
+                    This is visual way to define grid layout. You give regions names (like "header", "main", "sidebar") 
+                    and show ASCII art of layout. CSS understand instantly!
+                </p>
+                <pre style="background: #f8f9fa; padding: 10px; margin-top: 10px; border-radius: 3px; overflow-x: auto;">
+grid-template-areas:
+    "header header"     /* header span 2 columns */
+    "main sidebar"      /* main left, sidebar right */
+    "footer footer";    /* footer span 2 columns */
+                </pre>
+                <p style="margin-top: 10px;">
+                    Then on each element: <code>grid-area: header</code>, <code>grid-area: main</code>, etc.
+                </p>
+            </div>
+
+            <div class="newspaper">
+                <div class="newspaper-header">📰 TechNews Daily</div>
+                <div class="newspaper-main">
+                    <div class="article">
+                        <div class="article-title">Breaking: New CSS Grid Feature Released</div>
+                        <div class="article-text">
+                            The latest CSS Grid update bring performance improvement and new alignment option.
+                            Developer celebrating the enhancement.
+                        </div>
+                    </div>
+                    <div class="article">
+                        <div class="article-title">Web Development Trend 2025</div>
+                        <div class="article-text">
+                            Mobile-first design continue dominating. Accessibility becoming mandatory.
+                            React and Vue still most popular framework.
+                        </div>
+                    </div>
+                    <div class="article">
+                        <div class="article-title">Learning Path for Junior Developer</div>
+                        <div class="article-text">
+                            HTML, CSS, JavaScript fundamentally important. Then pick framework (React/Vue/Angular).
+                            Build project, get portfolio, apply job.
+                        </div>
+                    </div>
+                </div>
+                <div class="newspaper-sidebar">
+                    <div class="sidebar-title">🔥 Trending</div>
+                    <div class="sidebar-item">React 19 Released</div>
+                    <div class="sidebar-item">CSS Grid Tips & Tricks</div>
+                    <div class="sidebar-item">JavaScript 2025 Roadmap</div>
+                    <div class="sidebar-item">Web Performance Guide</div>
+                </div>
+                <div class="newspaper-footer">© 2025 TechNews Daily. All right reserved.</div>
+            </div>
+
+            <div class="explanation" style="margin-top: 20px;">
+                <strong>Code breakdown:</strong>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><code>display: grid</code> — Enable grid</li>
+                    <li><code>grid-template-columns: 1fr 300px</code> — 2 columns: flexible + fixed sidebar</li>
+                    <li><code>grid-template-rows: auto 1fr auto</code> — 3 rows: auto header, flex main, auto footer</li>
+                    <li><code>grid-template-areas: "header header" "main sidebar" "footer footer"</code> — Visual map</li>
+                    <li>Then on elements: <code>grid-area: header</code> place element in named area</li>
+                </ul>
+                <p style="margin-top: 10px;">
+                    <strong>Advantage:</strong> Super visual! Looking at grid-template-areas, you immediately see layout structure.
+                </p>
+            </div>
+        </section>
+
+        <!-- ===================================================
+             PATTERN 2: MASONRY GRID
+             =================================================== -->
+        <section>
+            <h2>Pattern 2: Masonry Grid with auto-fit + minmax()</h2>
+            <div class="pattern-label">💡 What Learn: auto-fit, minmax(), grid-auto-rows, fr unit</div>
+
+            <div class="explanation">
+                <strong>Key concepts:</strong>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><code>fr</code> unit = "flex row" = fraction of available space (like flex: 1)</li>
+                    <li><code>minmax(200px, 1fr)</code> = Minimum 200px, maximum 1 fraction of space</li>
+                    <li><code>auto-fit</code> = Automatically fit as many column as possible in available width</li>
+                    <li><code>grid-auto-rows: minmax(200px, auto)</code> = Rows auto-create if need, min 200px</li>
+                </ul>
+                <p style="margin-top: 10px;">
+                    <strong>Result:</strong> Masonry/gallery grid that responsive without media query!
+                </p>
+            </div>
+
+            <div class="masonry-grid">
+                <div class="masonry-item">Item 1</div>
+                <div class="masonry-item">Item 2 (2x height)</div>
+                <div class="masonry-item">Item 3</div>
+                <div class="masonry-item">Item 4</div>
+                <div class="masonry-item">Item 5 (2x width)</div>
+                <div class="masonry-item">Item 6</div>
+                <div class="masonry-item">Item 7</div>
+                <div class="masonry-item">Item 8</div>
+            </div>
+
+            <div class="explanation" style="margin-top: 20px;">
+                <strong>Difference: auto-fill vs auto-fit</strong>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><code>auto-fill</code> = Create empty tracks if no content (items stay min-width)</li>
+                    <li><code>auto-fit</code> = Collapse empty tracks (items can grow to fill space)</li>
+                </ul>
+                <p style="margin-top: 10px;">
+                    In most case, auto-fit what you want!
+                </p>
+            </div>
+        </section>
+
+        <!-- ===================================================
+             PATTERN 3: DASHBOARD ADMIN LAYOUT
+             =================================================== -->
+        <section>
+            <h2>Pattern 3: Dashboard Admin Layout with Named Grid Areas</h2>
+            <div class="pattern-label">💡 What Learn: Complex named areas, 2D grid layout</div>
+
+            <div class="explanation">
+                <strong>Popular pattern for admin dashboard:</strong>
+                <pre style="background: #f8f9fa; padding: 10px; margin-top: 10px; border-radius: 3px; overflow-x: auto;">
+grid-template-areas:
+    "nav nav nav"          /* Navigation top, span all columns */
+    "sidebar main main"    /* Sidebar left + Main content right */
+    "sidebar main main";   /* Same for row 2 */
+                </pre>
+                <p style="margin-top: 10px;">
+                    Resize window to see responsive behavior!
+                </p>
+            </div>
+
+            <div class="dashboard">
+                <div class="dashboard-top-nav">
+                    <div class="dashboard-logo">📊 Admin Dashboard</div>
+                    <div style="flex: 1;"></div>
+                    <div>👤 User Profile</div>
+                </div>
+                <div class="dashboard-sidebar">
+                    <div class="sidebar-menu-item">📈 Dashboard</div>
+                    <div class="sidebar-menu-item">👥 Users</div>
+                    <div class="sidebar-menu-item">📝 Reports</div>
+                    <div class="sidebar-menu-item">⚙️ Settings</div>
+                    <div class="sidebar-menu-item">📞 Support</div>
+                </div>
+                <div class="dashboard-content">
+                    <h3 style="margin-bottom: 20px;">Welcome to Admin Dashboard</h3>
+                    <div class="dashboard-grid">
+                        <div class="dashboard-card">
+                            <div class="card-value">1,234</div>
+                            <div class="card-label">Total Users</div>
+                        </div>
+                        <div class="dashboard-card">
+                            <div class="card-value">$45,678</div>
+                            <div class="card-label">Revenue</div>
+                        </div>
+                        <div class="dashboard-card">
+                            <div class="card-value">89%</div>
+                            <div class="card-label">Growth</div>
+                        </div>
+                        <div class="dashboard-card">
+                            <div class="card-value">2,456</div>
+                            <div class="card-label">Active Sessions</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="explanation" style="margin-top: 20px;">
+                <strong>Why Grid perfect for this:</strong>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Complex 2D layout (nav top, sidebar left, content right)</li>
+                    <li>Named areas make code readable</li>
+                    <li>Easy to rearrange on responsive (just change grid-template-areas)</li>
+                    <li>On mobile: hide sidebar or stack vertical</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ===================================================
+             CSS CONCEPTS & PROPERTIES
+             =================================================== -->
+        <section>
+            <h2>🎓 Important Grid Concepts</h2>
+
+            <h3 style="margin-top: 20px; margin-bottom: 10px;">What is fr unit?</h3>
+            <p>
+                <code>fr</code> = "fraction" of available space. Like flex: 1 in Flexbox. 
+                If <code>grid-template-columns: 1fr 1fr 1fr</code> (3 equal column) and width 900px, 
+                each column 300px.
+            </p>
+
+            <h3 style="margin-top: 20px; margin-bottom: 10px;">px vs % vs fr</h3>
+            <ul style="margin-left: 20px;">
+                <li><code>px</code> = Fixed pixel size (100px always 100px)</li>
+                <li><code>%</code> = Percentage of parent (50% = half of parent)</li>
+                <li><code>fr</code> = Fraction of remaining space (flexible like flex)</li>
+            </ul>
+
+            <h3 style="margin-top: 20px; margin-bottom: 10px;">What does minmax() do?</h3>
+            <p>
+                <code>minmax(200px, 1fr)</code> mean: minimum 200px, maximum 1 fraction of space. 
+                Useful for: "I want column at least 200px but can grow if space available".
+            </p>
+
+            <h3 style="margin-top: 20px; margin-bottom: 10px;">auto-fill vs auto-fit</h3>
+            <ul style="margin-left: 20px;">
+                <li><code>auto-fill</code> = Create many track as fit, even empty one</li>
+                <li><code>auto-fit</code> = Create track only if have content, empty collapse</li>
+            </ul>
+
+            <h3 style="margin-top: 20px; margin-bottom: 10px;">grid-template-areas ASCII art</h3>
+            <p>
+                Show layout as ASCII art. Each name represent region. Must be rectangular, 
+                no weird shape. Visual layout immediately clear!
+            </p>
+
+            <pre style="background: #f8f9fa; padding: 10px; margin-top: 10px; border-radius: 3px; overflow-x: auto;">
+✅ GOOD:                    ❌ BAD:
+"header header"            "header sidebar"
+"main sidebar"             "main main"
+"footer footer"            "footer sidebar"
+(Connect, rectangular)     (Sidebar not rectangular)
+            </pre>
+        </section>
+
+        <!-- ===================================================
+             DEFENSE QUESTIONS
+             =================================================== -->
+        <section style="background: #fff3e0;">
+            <h2>🛡️ Defense Questions</h2>
+
+            <div style="margin-bottom: 20px;">
+                <strong>Q: grid-template-areas bhanne ke ho? Kasari use garchau? (What is grid-template-areas? How do you use it?)</strong>
+                <p style="margin-top: 10px; color: #333;">
+                    A: grid-template-areas is visual way to define grid layout using ASCII art. You create named region 
+                    (like "header", "main", "sidebar") and draw how they arrange. Then on element use <code>grid-area: header</code> 
+                    to place element in that region. Very readable!
+                </p>
+                <pre style="background: #f8f9fa; padding: 10px; margin-top: 10px; border-radius: 3px; color: #333;">
+grid-template-areas:
+    "header header header"
+    "sidebar main main"
+    "footer footer footer";
+
+.header { grid-area: header; }
+.sidebar { grid-area: sidebar; }
+.main { grid-area: main; }
+.footer { grid-area: footer; }
+                </pre>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <strong>Q: fr unit ko matlab ke ho? Ka difference px/% sanga? (What does fr unit mean? Difference with px/%?)</strong>
+                <p style="margin-top: 10px; color: #333;">
+                    A: <code>fr</code> = "fraction" of available space. If <code>grid-template-columns: 1fr 1fr 1fr</code>, 
+                    three equal column each taking 1 fraction. <code>px</code> = fixed size, <code>%</code> = percentage, 
+                    <code>fr</code> = flexible remaining space (like flex: 1).
+                </p>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <strong>Q: minmax() function kina use garchau? (Why use minmax() function?)</strong>
+                <p style="margin-top: 10px; color: #333;">
+                    A: <code>minmax(200px, 1fr)</code> set minimum and maximum size. Column must be at least 200px, 
+                    but can grow up to 1 fraction of space. Perfect for: "I want card 200px min but responsive on big screen".
+                </p>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <strong>Q: auto-fill vs auto-fit ko difference? (What difference between auto-fill and auto-fit?)</strong>
+                <p style="margin-top: 10px; color: #333;">
+                    A: <code>auto-fill</code> create many track as fit (maybe empty). <code>auto-fit</code> create only 
+                    track with content, empty collapse. In 80% case use auto-fit!
+                </p>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- 
+    ===================================================
+    CSS GRID CONCEPT SUMMARY FOR YOGENDRA
+    ===================================================
+    
+    TWO-DIMENSIONAL LAYOUT:
+    Grid unlike Flexbox work in 2D (rows AND column). 
+    Perfect for: magazine layout, dashboard, complex layout.
+    
+    GRID TERMINOLOGY:
+    - Grid container: Parent with display: grid
+    - Grid item: Children element
+    - Grid cell: Single cell (like Excel)
+    - Grid track: Row or column (entire line)
+    - Grid area: Region (can span multiple cell)
+    
+    GRID-TEMPLATE-AREAS:
+    Visual ASCII art way to define layout.
+    Super readable! Just draw layout on paper → write in CSS.
+    
+    COMMON GRID LAYOUT PATTERN:
+    1. Newspaper: Header top, sidebar right, content left, footer bottom
+    2. Masonry: Gallery with responsive column
+    3. Dashboard: TopNav span all, sidebar left, content right
+    4. Card grid: Auto number of card based on screen size
+    
+    WHEN TO USE GRID vs FLEXBOX:
+    - Grid: 2D layout, complex positioning, magazine style
+    - Flexbox: 1D (row or column), navigation, distribution
+    
+    Remember: Most modern site use combination both!
+    
+    ===================================================
+    -->
+
+</body>
+</html>
