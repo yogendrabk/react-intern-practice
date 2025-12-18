@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 9: CSS Animations & Transitions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .pattern-label {
+            background: #e8f4f8;
+            padding: 10px;
+            border-left: 4px solid #3498db;
+            margin: 15px 0;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        code {
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+
+        .explanation {
+            background: #f0f7ff;
+            padding: 15px;
+            border-left: 4px solid #3498db;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .demo-area {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 4px;
+            text-align: center;
+            margin: 20px 0;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        /* ===================================================
+           PATTERN 1: BUTTON HOVER TRANSITIONS
+           
+           Difference between TRANSITION and ANIMATION:
+           - TRANSITION: Change from state A to B on event (like hover)
+                        Need trigger (hover, click, etc)
+                        Direction: A → B → A (reversible)
+           
+           - ANIMATION: Uses @keyframes, runs automatically
+                        Loop or play once, independent
+                        More complex: 0% → 50% → 100%
+           
+           This pattern use TRANSITION → smooth hover effect
+           =================================================== */
+        .button-hover {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            
+            /* TRANSITION: What property animate, how long, what curve */
+            /* Syntax: property duration timing-function */
+            transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .button-hover:hover {
+            background: #764ba2;
+            transform: scale(1.05);           /* Grow 5% on hover */
+            box-shadow: 0 8px 16px rgba(102, 126, 234, 0.4);
+        }
+
+        /* ===================================================
+           PATTERN 2: LOADING SPINNER
+           
+           Use @keyframes and animation property.
+           animation: name duration timing-function iteration-count
+           
+           Continuous rotation effect
+           =================================================== */
+        @keyframes spin {
+            /* 0% = start state */
+            0% {
+                transform: rotate(0deg);
+            }
+            /* 100% = end state */
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #e8e8e8;      /* Light gray background */
+            border-top: 4px solid #667eea;  /* Blue top, create spinning effect */
+            border-radius: 50%;
+            
+            /* Apply animation */
+            animation: spin 1s linear infinite;  /* Spin animation, 1s, linear speed, infinite loop */
+        }
+
+        /* ===================================================
+           PATTERN 3: PULSING NOTIFICATION DOT
+           
+           Different keyframe: fade in-out effect
+           =================================================== */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.7;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .notification-dot {
+            width: 20px;
+            height: 20px;
+            background: #ef4444;
+            border-radius: 50%;
+            display: inline-block;
+            
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* ===================================================
+           PATTERN 4: CARD FLIP ANIMATION
+           
+           Complex 3D animation using:
+           - perspective: Depth effect
+           - transform-style: preserve-3d: 3D coordinate system
+           - rotateY: Rotate on Y axis (vertical flip)
+           =================================================== */
+        .flip-card {
+            width: 150px;
+            height: 150px;
+            position: relative;
+            cursor: pointer;
+            
+            /* Enable 3D space */
+            perspective: 1000px;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;    /* Enable 3D */
+        }
+
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);      /* Flip 180deg on Y axis */
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;     /* Hide back side when flip */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            font-weight: bold;
+            color: white;
+            font-size: 24px;
+        }
+
+        .flip-card-front {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .flip-card-back {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            transform: rotateY(180deg);      /* Already rotated 180deg */
+        }
+
+        /* ===================================================
+           PATTERN 5: SKELETON LOADER
+           
+           Gray shimmer effect - common in React while loading data.
+           Use animation to make shimmer move left-right.
+           =================================================== */
+        @keyframes shimmer {
+            0% {
+                background-position: -1000px 0;
+            }
+            100% {
+                background-position: 1000px 0;
+            }
+        }
+
+        .skeleton-loader {
+            background: linear-gradient(
+                90deg,
+                #e8e8e8 0%,
+                #f8f8f8 50%,
+                #e8e8e8 100%
+            );
+            background-size: 1000px 100%;
+            
+            animation: shimmer 2s infinite;
+            border-radius: 4px;
+            height: 20px;
+            margin: 10px 0;
+        }
+
+        .skeleton-line-1 {
+            width: 80%;
+        }
+
+        .skeleton-line-2 {
+            width: 60%;
+        }
+
+        .skeleton-line-3 {
+            width: 70%;
+        }
+
+        /* ===================================================
+           TRANSITION TIMING FUNCTIONS
+           =================================================== */
+        .timing-demo {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .timing-box {
+            width: 60px;
+            height: 60px;
+            background: #667eea;
+            border-radius: 4px;
+            margin: 10px 5px;
+            cursor: pointer;
+            transition: transform 0.5s;
+        }
+
+        .timing-demo:hover .timing-box {
+            transform: translateY(-50px);    /* Move up 50px */
+        }
+
+        .timing-ease {
+            transition-timing-function: ease;        /* Slow start-end, fast middle */
+        }
+
+        .timing-linear {
+            transition-timing-function: linear;      /* Same speed throughout */
+        }
+
+        .timing-ease-in {
+            transition-timing-function: ease-in;     /* Start slow, end fast */
+        }
+
+        .timing-ease-out {
+            transition-timing-function: ease-out;    /* Start fast, end slow */
+        }
+
+        .timing-label {
+            font-size: 11px;
+            color: #666;
+            text-align: center;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 CSS Animations & Transitions</h1>
+        <p style="color: #666; margin-bottom: 30px;">Day 9: Learning smooth animation and interactive effects</p>
+
+        <!-- ===================================================
+             SECTION 1: TRANSITIONS ON HOVER
+             =================================================== -->
+        <section>
+            <h2>Pattern 1: Button Hover Transitions</h2>
+            <div class="pattern-label">💡 What Learn: CSS transitions, smooth property change</div>
+
+            <div class="explanation">
+                <strong>TRANSITION vs ANIMATION - Key Difference:</strong>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>TRANSITION:</strong> Smooth change from state A to B on event (hover, click)
+                        <br>Example: <code>transition: background 0.3s</code> on hover change color</li>
+                    <li><strong>ANIMATION:</strong> Runs automatically using @keyframes, doesn't need event
+                        <br>Example: <code>animation: spin 1s infinite</code> keep spinning forever</li>
+                </ul>
+                <p style="margin-top: 10px;">
+                    <strong>This pattern use TRANSITION →</strong> Hover button, smooth color+scale+shadow change.
+                </p>
+            </div>
+
+            <div class="demo-area">
+                <button class="button-hover">Hover Me! 🎯</button>
+                <button class="button-hover">Hover Me Too! ✨</button>
+                <button class="button-hover">And Me! 🚀</button>
+            </div>
+
+            <div class="explanation" style="margin-top: 20px;">
+                <strong>Code Explanation:</strong>
+                <pre style="background: #f8f9fa; padding: 10px; border-radius: 3px; overflow-x: auto;">
+transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+/* What to animate | Duration | Timing function */
+
+:hover {
+    background: #764ba2;      /* Change color */
+    transform: scale(1.05);   /* Grow 5% */
+    box-shadow: 0 8px 16px;   /* Add shadow */
+}
+                </pre>
+                <p style="margin-top: 10px;">
+                    <code>transition</code> make change smooth instead of instant. 
+                    <code>0.3s</code> mean animation take 0.3 second. <code>ease</code> mean start slow-end slow.
+                </p>
+            </div>
+        </section>
+
+        <!-- ===================================================
+             SECTION 2: LOADING SPINNER
+             =================================================== -->
+        <section>
+            <h2>Pattern 2: Loading Spinner Animation</h2>
+            <div class="pattern-label">💡 What Learn: @keyframes, animation loop</div>
+
+            <div class="explanation">
+                <strong>Using @keyframes for continuous animation:</strong>
+                <pre style="background: #f8f9fa; padding: 10px; border-radius: 3px; overflow-x: auto;">
+@keyframes spin {
+    0% { transform: rotate(0deg); }      /* Start: 0 degree */
+    100% { transform: rotate(360deg); }   /* End: 360 degree (full circle) */
+}
+
+.spinner {
+    animation: spin 1s linear infinite;
+    /* What animation | Duration | Speed | Loop forever */
+}
+                </pre>
+                <p style="margin-top: 10px;">
+                    <code>@keyframes spin</code> define animation. 0% = start, 100% = end.
+                    <code>infinite</code> keep looping forever. Perfect for loading screen!
+                </p>
+            </div>
+
+            <div class="demo-area">
+                <div style="text-align: center;">
+                    <div class="spinner"></div>
+                    <p style="font-size: 12px; color: #666; margin-top: 10px;">Loading...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================
+             SECTION 3: PULSING NOTIFICATION
+             =================================================== -->
+        <section>
+            <h2>Pattern 3: Pulsing Notification Dot</h2>
+            <div class="pattern-label">💡 What Learn: Complex @keyframes with multiple steps</div>
+
+            <div class="explanation">
+                <strong>Keyframe with 3 step (0%, 50%, 100%):</strong>
+                <pre style="background: #f8f9fa; padding: 10px; border-radius: 3px; overflow-x: auto;">
+@keyframes pulse {
+    0%   { transform: scale(1);   opacity: 1; }   /* Normal size, visible */
+    50%  { transform: scale(1.2); opacity: 0.7; } /* Grow, fade slightly */
+    100% { transform: scale(1);   opacity: 1; }   /* Back to normal */
+}
+                </pre>
+            </div>
+
+            <div class="demo-area">
+                <div style="text-align: center;">
+                    <div class="notification-dot"></div>
+                    <p style="font-size: 12px; color: #666; margin-top: 10px;">New Message! 📬</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================
+             SECTION 4: CARD FLIP ANIMATION (3D)
+             =================================================== -->
+        <section>
+            <h2>Pattern 4: Card Flip Animation (3D)</h2>
+            <div class="pattern-label">💡 What Learn: 3D transform, perspective, preserve-3d</div>
+
+            <div class="explanation">
+                <strong>3D Animation with perspective:</strong>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><code>perspective: 1000px</code> — Add depth, make 3D effect realistic</li>
+                    <li><code>transform-style: preserve-3d</code> — Child element in 3D space (not flat)</li>
+                    <li><code>transform: rotateY(180deg)</code> — Rotate on Y axis (vertical flip)</li>
+                    <li><code>backface-visibility: hidden</code> — Hide back side of element when flipped</li>
+                </ul>
+                <p style="margin-top: 10px;">
+                    <strong>Hover over card to see flip animation!</strong>
+                </p>
+            </div>
+
+            <div class="demo-area">
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">👀</div>
+                        <div class="flip-card-back">🎉</div>
+                    </div>
+                </div>
+
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">🌐</div>
+                        <div class="flip-card-back">⚡</div>
+                    </div>
+                </div>
+
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">💡</div>
+                        <div class="flip-card-back">🚀</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="explanation" style="margin-top: 20px;">
+                <strong>Code Structure:</strong>
+                <pre style="background: #f8f9fa; padding: 10px; border-radius: 3px; overflow-x: auto;">
+.flip-card {
+    perspective: 1000px;  /* Add 3D depth */
+}
+
+.flip-card-inner {
+    transition: transform 0.6s;
+    transform-style: preserve-3d;  /* Enable 3D coordinate */
+}
+
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);  /* Flip on Y axis */
+}
+
+.flip-card-back {
+    backface-visibility: hidden;  /* Hide back when facing away */
+    transform: rotateY(180deg);   /* Pre-rotate back 180deg */
+}
+                </pre>
+            </div>
+        </section>
+
+        <!-- ===================================================
+             SECTION 5: SKELETON LOADER (Shimmer Effect)
+             =================================================== -->
+        <section>
+            <h2>Pattern 5: Skeleton Loading Placeholder</h2>
+            <div class="pattern-label">💡 What Learn: Shimmer animation, common React pattern</div>
+
+            <div class="explanation">
+                <strong>Skeleton loader common in modern apps while data loading:</strong>
+                <p style="margin-top: 10px;">
+                    Show gray placeholder with shimmer effect, then replace with real content when loaded.
+                    Much better UX than showing nothing or spinner!
+                </p>
+            </div>
+
+            <div class="demo-area" style="min-height: 200px; align-items: flex-start;">
+                <div style="width: 100%; max-width: 300px;">
+                    <h3 style="margin-bottom: 15px;">Post Loading...</h3>
+                    <div class="skeleton-loader skeleton-line-1"></div>
+                    <div class="skeleton-loader skeleton-line-2"></div>
+                    <div class="skeleton-loader skeleton-line-3"></div>
+                    <div class="skeleton-loader" style="width: 100%; height: 150px; margin-top: 15px;"></div>
+                </div>
+            </div>
+
+            <div class="explanation" style="margin-top: 20px;">
+                <strong>How skeleton loader work:</strong>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Show gray placeholder layout matching real content structure</li>
+                    <li>Animate shimmer effect (light gray moving left-right) to imply loading</li>
+                    <li>When real data arrive, replace placeholder with actual content</li>
+                    <li>Result: Perceived faster loading, better user experience</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ===================================================
+             SECTION 6: TIMING FUNCTIONS COMPARISON
+             =================================================== -->
+        <section>
+            <h2>Timing Functions Comparison</h2>
+            <div class="pattern-label">💡 Different animation speed profile</div>
+
+            <div class="explanation">
+                <strong>Timing functions control animation speed:</strong>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><code>ease</code> — Slow start, fast middle, slow end (smooth, natural)</li>
+                    <li><code>linear</code> — Same speed throughout (mechanical)</li>
+                    <li><code>ease-in</code> — Slow start, then fast (accelerating)</li>
+                    <li><code>ease-out</code> — Fast start, then slow (decelerating)</li>
+                </ul>
+                <p style="margin-top: 10px;">
+                    <strong>Hover over to compare! Each box move different speed curve:</strong>
+                </p>
+            </div>
+
+            <div class="timing-demo">
+                <div>
+                    <div class="timing-box timing-ease"></div>
+                    <div class="timing-label">ease</div>
+                </div>
+                <div>
+                    <div class="timing-box timing-linear"></div>
+                    <div class="timing-label">linear</div>
+                </div>
+                <div>
+                    <div class="timing-box timing-ease-in"></div>
+                    <div class="timing-label">ease-in</div>
+                </div>
+                <div>
+                    <div class="timing-box timing-ease-out"></div>
+                    <div class="timing-label">ease-out</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================
+             DEFENSE QUESTIONS
+             =================================================== -->
+        <section style="background: #fff3e0;">
+            <h2>🛡️ Defense Questions & Answers</h2>
+
+            <div style="margin-bottom: 20px;">
+                <strong>Q: CSS transition ra animation ko difference ke ho? (What's difference between transition and animation?)</strong>
+                <p style="margin-top: 10px; color: #333;">
+                    A: <strong>Transition:</strong> Smooth change from state A to B when event happen (like hover). 
+                    Need trigger. Example: Button color change on hover.<br>
+                    <strong>Animation:</strong> Run independently using @keyframes. No event needed, can loop forever. 
+                    Example: Spinning loader that auto-rotate.
+                </p>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <strong>Q: @keyframes kina use garchau? (Why use @keyframes?)</strong>
+                <p style="margin-top: 10px; color: #333;">
+                    A: @keyframes define animation step. 0% mean start state, 100% mean end state. 
+                    Can have middle step (50%, 75%, etc). Browser auto-interpolate between keyframe, 
+                    creating smooth animation.
+                </p>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <strong>Q: perspective ra transform-style: preserve-3d ko purpose ke ho? (What do they do?)</strong>
+                <p style="margin-top: 10px; color: #333;">
+                    A: <code>perspective: 1000px</code> add 3D depth effect (farther 1000px). 
+                    <code>transform-style: preserve-3d</code> tell browser child element in 3D space, not flat. 
+                    Together make card flip look realistic with depth!
+                </p>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <strong>Q: Skeleton loader kina useful? (Why skeleton loader useful?)</strong>
+                <p style="margin-top: 10px; color: #333;">
+                    A: Skeleton loader show placeholder layout while real data loading. Much better than blank page or spinner. 
+                    User see structure, understand what loading. Result: Perceived faster loading, better UX. 
+                    Very common in React apps!
+                </p>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <strong>Q: Timing function kina matter? ease vs linear ke difference? (Why timing function important?)</strong>
+                <p style="margin-top: 10px; color: #333;">
+                    A: Timing function control animation speed curve. <code>ease</code> natural, smooth, 
+                    good for most case. <code>linear</code> mechanical, robotic. <code>ease-in/out</code> 
+                    special effect. Choosing right timing make animation feel professional and natural!
+                </p>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- 
+    ===================================================
+    CSS ANIMATION CONCEPT SUMMARY
+    ===================================================
+    
+    TRANSITION vs ANIMATION:
+    - Transition: A→B on event, reversible, need trigger
+    - Animation: @keyframes, auto-play, independent timing
+    
+    ANIMATION PROPERTIES:
+    animation: name duration timing-function delay iteration-count direction;
+    - name: Which @keyframes
+    - duration: How long (0.3s, 1s, etc)
+    - timing-function: ease, linear, ease-in, ease-out
+    - iteration-count: 1, infinite, etc
+    
+    @KEYFRAMES BASICS:
+    0% = Start state
+    50% = Middle state (optional)
+    100% = End state
+    Browser auto-create smooth transition between.
+    
+    3D ANIMATION KEY:
+    - perspective: Add depth (bigger number = farther)
+    - transform-style: preserve-3d: Enable 3D children
+    - rotateX, rotateY, rotateZ: Rotate on different axis
+    - backface-visibility: hidden: Hide back when facing away
+    
+    COMMON ANIMATIONS:
+    1. Hover transitions: Button color change, scale up
+    2. Spinner: Infinite rotation
+    3. Pulse: Scale + opacity loop
+    4. Flip: 3D rotation
+    5. Skeleton: Shimmer effect while loading
+    
+    PERFORMANCE NOTE:
+    - Use transform + opacity (GPU accelerated)
+    - Avoid animating width/height (CPU expensive)
+    - For smooth 60fps: Use will-change property
+    
+    ===================================================
+    -->
+
+</body>
+</html>
