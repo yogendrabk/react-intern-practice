@@ -39,7 +39,14 @@ By February 19, 2026, I aim to:
 - ✅ Get comfortable with browser developer tools
 - ✅ Create first Git repository and make commits
 
-### Week 2-3 (Dec 15-26)
+### Week 2 (Dec 15-19)
+- ✅ Master CSS Flexbox (1D layouts)
+- ✅ Master CSS Grid (2D layouts)
+- ✅ Learn responsive design (mobile-first)
+- ✅ Create CSS animations
+- ✅ Build landing page mini project
+
+### Week 3 (Dec 22-26)
 - Learn JavaScript fundamentals (variables, functions, DOM manipulation)
 - Create interactive web pages using vanilla JavaScript
 - Understand async/await and API fetching
@@ -72,7 +79,8 @@ By February 19, 2026, I aim to:
 | Week | Status | Focus Area | Completion |
 |------|--------|-----------|------------|
 | **Week 1** (Dec 8-12) | ✅ Complete | Dev Environment, HTML, CSS, Git | 100% |
-| **Week 2-3** (Dec 15-26) | ⏳ Pending | JavaScript Fundamentals | 0% |
+| **Week 2** (Dec 15-19) | ✅ Complete | CSS Layouts (Flexbox, Grid), Responsive Design, Animations | 100% |
+| **Week 3** (Dec 22-26) | ⏳ Pending | JavaScript Fundamentals | 0% |
 | **Week 4-5** (Dec 29-Jan 9) | ⏳ Pending | React Introduction | 0% |
 | **Week 6-8** (Jan 12-30) | ⏳ Pending | React Hooks & API | 0% |
 | **Week 9-10** (Feb 2-13) | ⏳ Pending | End-to-End Project | 0% |
@@ -89,7 +97,16 @@ By February 19, 2026, I aim to:
 - [x] Created 5 commits with meaningful messages
 - [x] Built foundation for React learning
 
-#### ⏳ Week 2-3 — Upcoming
+#### ✅ Week 2 — Completed
+- [x] Mastered Flexbox (1D layout patterns)
+- [x] Mastered CSS Grid (2D layout patterns)
+- [x] Learned responsive design (mobile-first approach)
+- [x] Created CSS animations and transitions
+- [x] Built real-world landing page mini project
+- [x] Used CSS custom properties for theming
+- [x] Created 5 comprehensive exercises with real patterns
+
+#### ⏳ Week 3 — Upcoming
 - [ ] JavaScript variables and data types
 - [ ] Functions, scope, and closures
 - [ ] Arrow functions and modern JavaScript

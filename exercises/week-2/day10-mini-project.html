@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechFlow - Responsive Landing Page</title>
+    <style>
+        /* ===================================================
+           CSS CUSTOM PROPERTIES (VARIABLES) FOR THEMING
+           
+           In CSS, --name define variable (custom property).
+           Use var(--name) to access. Easy to theme whole page!
+           =================================================== */
+        :root {
+            /* Colors */
+            --primary: #667eea;
+            --primary-dark: #764ba2;
+            --primary-light: #f093fb;
+            --secondary: #f5576c;
+            
+            --text-dark: #2c3e50;
+            --text-light: #666;
+            --text-lighter: #999;
+            
+            --bg: #fff;
+            --bg-light: #f8f9fa;
+            --bg-lighter: #f5f5f5;
+            
+            --border: #e0e0e0;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.15);
+            
+            /* Spacing */
+            --spacing-xs: 8px;
+            --spacing-sm: 12px;
+            --spacing-md: 20px;
+            --spacing-lg: 30px;
+            --spacing-xl: 40px;
+            
+            /* Timing */
+            --transition: 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-dark);
+            background: var(--bg);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+
+        /* ===================================================
+           HERO SECTION - Animated
+           =================================================== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: var(--spacing-xl) var(--spacing-md);
+            text-align: center;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: var(--spacing-md);
+            animation: fadeInUp 0.8s ease-out 0.1s both;
+        }
+
+        .hero p {
+            font-size: 20px;
+            opacity: 0.9;
+            margin-bottom: var(--spacing-lg);
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border-radius: 4px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: var(--transition);
+            animation: fadeInUp 0.8s ease-out 0.3s both;
+            cursor: pointer;
+            border: none;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ===================================================
+           FEATURES SECTION - CSS Grid
+           =================================================== */
+        .features {
+            padding: var(--spacing-xl) var(--spacing-md);
+            background: var(--bg-lighter);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: var(--spacing-xl);
+            color: var(--text-dark);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .feature-card {
+            background: white;
+            padding: var(--spacing-lg);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .feature-card h3 {
+            font-size: 20px;
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-dark);
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        /* ===================================================
+           TEAM SECTION - Flexbox
+           =================================================== */
+        .team {
+            padding: var(--spacing-xl) var(--spacing-md);
+        }
+
+        .team-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-lg);
+            justify-content: center;
+        }
+
+        .team-member {
+            flex: 1 1 200px;
+            background: var(--bg-light);
+            border-radius: 8px;
+            padding: var(--spacing-lg);
+            text-align: center;
+            box-shadow: var(--shadow);
+            max-width: 250px;
+        }
+
+        .team-member-avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 50%;
+            margin: 0 auto var(--spacing-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+        }
+
+        .team-member h4 {
+            margin-bottom: var(--spacing-xs);
+            color: var(--text-dark);
+        }
+
+        .team-member p {
+            color: var(--text-light);
+            font-size: 13px;
+        }
+
+        /* ===================================================
+           PRICING SECTION
+           =================================================== */
+        .pricing {
+            padding: var(--spacing-xl) var(--spacing-md);
+            background: var(--bg-lighter);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: white;
+            padding: var(--spacing-lg);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--primary);
+            transform: scale(1.05);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .price-value {
+            font-size: 36px;
+            font-weight: bold;
+            color: var(--primary);
+            margin: var(--spacing-md) 0;
+        }
+
+        .price-list {
+            text-align: left;
+            margin: var(--spacing-lg) 0;
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .price-list li {
+            padding: var(--spacing-xs) 0;
+            list-style: none;
+        }
+
+        .price-button {
+            background: var(--primary);
+            color: white;
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            font-weight: bold;
+        }
+
+        .price-button:hover {
+            background: var(--primary-dark);
+        }
+
+        /* ===================================================
+           FAQ SECTION - CSS Only Accordion (Checkbox Hack)
+           =================================================== */
+        .faq {
+            padding: var(--spacing-xl) var(--spacing-md);
+        }
+
+        .faq-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .faq-question {
+            display: flex;
+            align-items: center;
+            background: var(--bg-light);
+            padding: var(--spacing-md);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid var(--border);
+        }
+
+        .faq-question:hover {
+            background: #efefef;
+        }
+
+        .faq-checkbox {
+            display: none;
+        }
+
+        .faq-label {
+            flex: 1;
+            cursor: pointer;
+            font-weight: bold;
+            color: var(--text-dark);
+        }
+
+        .faq-toggle {
+            width: 24px;
+            height: 24px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .faq-checkbox:checked ~ .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: white;
+            padding: 0 var(--spacing-md);
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        .faq-checkbox:checked ~ .faq-answer {
+            max-height: 200px;
+            padding: var(--spacing-md);
+        }
+
+        /* ===================================================
+           CONTACT SECTION
+           =================================================== */
+        .contact {
+            padding: var(--spacing-xl) var(--spacing-md);
+            background: var(--bg-lighter);
+        }
+
+        .contact-form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: var(--spacing-xs);
+            font-weight: bold;
+            color: var(--text-dark);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: var(--spacing-sm);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .submit-button {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: var(--spacing-md);
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* ===================================================
+           FOOTER
+           =================================================== */
+        footer {
+            background: var(--text-dark);
+            color: white;
+            padding: var(--spacing-lg) var(--spacing-md);
+            text-align: center;
+        }
+
+        /* ===================================================
+           RESPONSIVE - Mobile First
+           =================================================== */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .team-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .team-member {
+                flex: 1 1 100%;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section - Animated Intro -->
+    <section class="hero">
+        <div class="container">
+            <h1>🚀 Welcome to TechFlow</h1>
+            <p>Build amazing projects with modern technology</p>
+            <button class="cta-button">Get Started</button>
+        </div>
+    </section>
+
+    <!-- Features Section - CSS Grid -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">✨ Our Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Lightning Fast</h3>
+                    <p>Optimized performance for better user experience</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Secure</h3>
+                    <p>Enterprise-grade security for your data</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Responsive</h3>
+                    <p>Works perfectly on all devices and screen sizes</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3>Beautiful Design</h3>
+                    <p>Modern and intuitive user interface</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section - Flexbox -->
+    <section class="team">
+        <div class="container">
+            <h2 class="section-title">👥 Our Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="team-member-avatar">👨‍💼</div>
+                    <h4>John Developer</h4>
+                    <p>Lead Developer</p>
+                </div>
+                <div class="team-member">
+                    <div class="team-member-avatar">👩‍💼</div>
+                    <h4>Sarah Designer</h4>
+                    <p>UX Designer</p>
+                </div>
+                <div class="team-member">
+                    <div class="team-member-avatar">👨‍💻</div>
+                    <h4>Mike Frontend</h4>
+                    <p>Frontend Expert</p>
+                </div>
+                <div class="team-member">
+                    <div class="team-member-avatar">👩‍🔬</div>
+                    <h4>Emily PM</h4>
+                    <p>Product Manager</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing">
+        <div class="container">
+            <h2 class="section-title">💰 Pricing Plans</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Starter</h3>
+                    <div class="price-value">$9<span style="font-size: 18px;">/month</span></div>
+                    <ul class="price-list">
+                        <li>✓ 5 Projects</li>
+                        <li>✓ Basic Support</li>
+                        <li>✓ 1GB Storage</li>
+                        <li>✗ Advanced Features</li>
+                    </ul>
+                    <button class="price-button">Choose Plan</button>
+                </div>
+                <div class="pricing-card featured">
+                    <h3>Popular</h3>
+                    <div class="price-value">$29<span style="font-size: 18px;">/month</span></div>
+                    <ul class="price-list">
+                        <li>✓ Unlimited Projects</li>
+                        <li>✓ Priority Support</li>
+                        <li>✓ 100GB Storage</li>
+                        <li>✓ Advanced Features</li>
+                    </ul>
+                    <button class="price-button">Choose Plan</button>
+                </div>
+                <div class="pricing-card">
+                    <h3>Enterprise</h3>
+                    <div class="price-value">$99<span style="font-size: 18px;">/month</span></div>
+                    <ul class="price-list">
+                        <li>✓ Everything in Popular</li>
+                        <li>✓ 24/7 Phone Support</li>
+                        <li>✓ Unlimited Storage</li>
+                        <li>✓ Custom Integration</li>
+                    </ul>
+                    <button class="price-button">Contact Sales</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section - CSS Only Accordion -->
+    <section class="faq">
+        <div class="container">
+            <h2 class="section-title">❓ FAQ</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <input type="checkbox" id="faq1" class="faq-checkbox">
+                    <label for="faq1" class="faq-question">
+                        <span class="faq-label">What is TechFlow?</span>
+                        <span class="faq-toggle">+</span>
+                    </label>
+                    <div class="faq-answer">
+                        TechFlow is a modern platform helping developers build amazing projects with efficiency and ease.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <input type="checkbox" id="faq2" class="faq-checkbox">
+                    <label for="faq2" class="faq-question">
+                        <span class="faq-label">Is there a free trial?</span>
+                        <span class="faq-toggle">+</span>
+                    </label>
+                    <div class="faq-answer">
+                        Yes! We offer a 14-day free trial with full access to all features. No credit card required.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <input type="checkbox" id="faq3" class="faq-checkbox">
+                    <label for="faq3" class="faq-question">
+                        <span class="faq-label">How does pricing work?</span>
+                        <span class="faq-toggle">+</span>
+                    </label>
+                    <div class="faq-answer">
+                        We offer flexible pricing plans for individuals and teams. All plans include core features.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact">
+        <div class="container">
+            <h2 class="section-title">📧 Get in Touch</h2>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea rows="4" required></textarea>
+                </div>
+                <button type="submit" class="submit-button">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 TechFlow. All rights reserved.</p>
+            <p>Week 2 Mini Project - Responsive Landing Page by Yogendra BK</p>
+        </div>
+    </footer>
+
+    <!-- 
+    ===================================================
+    WEEK 2 MINI PROJECT NOTES
+    ===================================================
+    
+    This landing page combine ALL concept from Week 1 & 2:
+    
+    WEEK 1 (Foundation):
+    - Semantic HTML structure
+    - CSS box model
+    
+    WEEK 2 (Advanced CSS):
+    - Flexbox (team section)
+    - CSS Grid (features grid)
+    - Responsive design (mobile-first)
+    - CSS animations (hero, transitions)
+    - CSS custom properties (variables)
+    
+    ADVANCED CONCEPTS:
+    - CSS custom properties (--varname) for theming
+    - Checkbox hack for accordion (CSS only, no JS!)
+    - Keyframe animation for hero fade-in
+    - Multiple layout patterns combined
+    
+    REAL WORLD PATTERNS:
+    - Hero section with CTA
+    - Feature cards grid
+    - Team member cards
+    - Pricing comparison
+    - FAQ accordion
+    - Contact form
+    - Footer
+    
+    All responsive, themeable, and production-ready!
+    
+    ===================================================
+    -->
+
+</body>
+</html>
