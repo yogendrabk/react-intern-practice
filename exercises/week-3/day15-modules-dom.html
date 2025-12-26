@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Search & Filter - JS Modules Demo</title>
+    <style>
+        /* =================================================
+           CSS STYLING FOR MODULE DEMO
+           ================================================= */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .subtitle {
+            color: #666;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .category-btn {
+            padding: 10px 20px;
+            border: 2px solid #ddd;
+            background: white;
+            color: #333;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+        
+        .category-btn:hover {
+            border-color: #667eea;
+            color: #667eea;
+        }
+        
+        .category-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .sort-control {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .sort-control select {
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .product-card {
+            background: #f9f9f9;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: white;
+        }
+        
+        .product-info {
+            padding: 15px;
+        }
+        
+        .product-name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .product-category {
+            display: inline-block;
+            background: #e8e8e8;
+            color: #666;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+        
+        .product-description {
+            color: #666;
+            font-size: 13px;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        
+        .product-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .empty-message {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+            font-size: 16px;
+        }
+        
+        .info-section {
+            background: #f0f4ff;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin-top: 30px;
+            border-radius: 4px;
+        }
+        
+        .info-section h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .info-section p {
+            color: #555;
+            line-height: 1.6;
+            font-size: 13px;
+        }
+        
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 12px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏪 Product Catalog — Live Search & Filter</h1>
+        <p class="subtitle">Week 3 Day 15 — JavaScript Modules + DOM + Debounce Demo</p>
+        
+        <!-- CONTROLS -->
+        <div class="controls">
+            <!-- Search Box with Debounce -->
+            <div class="search-box">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="🔍 Search products (debounced — only fires 300ms after typing)..."
+                >
+            </div>
+        </div>
+        
+        <!-- Category Filter Buttons -->
+        <div class="controls">
+            <strong style="width: 100%; margin-bottom: 10px;">Filter by Category:</strong>
+            <div class="filter-buttons">
+                <button class="category-btn active" data-category="all">All Products</button>
+                <button class="category-btn" data-category="laptop">💻 Laptop</button>
+                <button class="category-btn" data-category="phone">📱 Phone</button>
+                <button class="category-btn" data-category="tablet">📱 Tablet</button>
+                <button class="category-btn" data-category="accessory">🎧 Accessory</button>
+            </div>
+        </div>
+        
+        <!-- Sort Control -->
+        <div class="controls">
+            <div class="sort-control">
+                <label>Sort by:</label>
+                <select id="sortSelect">
+                    <option value="name-asc">Name (A-Z)</option>
+                    <option value="name-desc">Name (Z-A)</option>
+                    <option value="price-asc">Price (Low to High)</option>
+                    <option value="price-desc">Price (High to Low)</option>
+                </select>
+            </div>
+        </div>
+        
+        <!-- Products Grid -->
+        <div id="productsContainer" class="products-grid">
+            <!-- Products will be rendered here -->
+        </div>
+        
+        <!-- Information Section -->
+        <div class="info-section">
+            <h3>📝 How This Works (Module + Debounce)</h3>
+            <p>
+                <strong>ES6 Modules:</strong> This page imports helper functions from day15-helpers.js 
+                using type="module" script tag. The helpers include formatCurrency, truncateText, 
+                and debounce functions.
+            </p>
+            <p style="margin-top: 10px;">
+                <strong>Debounce:</strong> The search box uses debounce to prevent excessive function calls. 
+                It only fires the search handler 300ms AFTER you stop typing. Without debounce, search would 
+                fire on every keystroke (performance issue!). This is key concept in modern web development.
+            </p>
+            <div class="code-block">
+// Debounce prevents "too many API calls"
+const debouncedSearch = debounce((query) => {
+    filterProducts(query);
+}, 300);
+
+searchInput.addEventListener('input', debouncedSearch);
+            </div>
+            <p style="margin-top: 10px;">
+                <strong>Defensive Note (for internship):</strong> 
+                Debounce bhanne ko = function ko execution delay garne. User type every keystroke, 
+                300ms pachi request marey. Without debounce: 100 keystroke = 100 API call! 
+                With debounce: 100 keystroke = 1 API call. Network bandwidth ra server load save hunchha!
+            </p>
+        </div>
+    </div>
+    
+    <!-- 
+    ===================================================
+    MODULE SCRIPT — type="module" Enable ES6 Import/Export
+    ===================================================
+    
+    Key Point: type="module" REQUIRED for import/export!
+    Without this, import syntax throw error.
+    -->
+    <script type="module">
+        // Import helper functions from day15-helpers.js
+        import { 
+            formatCurrency, 
+            truncateText, 
+            debounce 
+        } from './day15-helpers.js';
+        
+        // ===================================================
+        // PRODUCTS DATA
+        // ===================================================
+        
+        const products = [
+            { id: 1, name: "MacBook Pro 16\"", price: 350000, category: "laptop", emoji: "💻" },
+            { id: 2, name: "iPhone 15 Pro", price: 150000, category: "phone", emoji: "📱" },
+            { id: 3, name: "iPad Air", price: 120000, category: "tablet", emoji: "📱" },
+            { id: 4, name: "AirPods Pro", price: 35000, category: "accessory", emoji: "🎧" },
+            { id: 5, name: "Dell XPS 13", price: 200000, category: "laptop", emoji: "💻" },
+            { id: 6, name: "Samsung Z Fold", price: 180000, category: "phone", emoji: "📱" },
+            { id: 7, name: "Sony WH-1000", price: 45000, category: "accessory", emoji: "🎧" },
+            { id: 8, name: "iPad Pro 12.9\"", price: 180000, category: "tablet", emoji: "📱" },
+            { id: 9, name: "ThinkPad X1", price: 180000, category: "laptop", emoji: "💻" },
+            { id: 10, name: "Pixel 8 Pro", price: 120000, category: "phone", emoji: "📱" },
+            { id: 11, name: "USB-C Cable", price: 500, category: "accessory", emoji: "🔌" },
+            { id: 12, name: "Surface Pro 9", price: 220000, category: "laptop", emoji: "💻" }
+        ];
+        
+        // ===================================================
+        // STATE MANAGEMENT
+        // ===================================================
+        
+        let currentCategory = "all";
+        let currentSearchQuery = "";
+        let currentSort = "name-asc";
+        
+        // ===================================================
+        // FILTER AND DISPLAY LOGIC
+        // ===================================================
+        
+        const filterProducts = (query = currentSearchQuery) => {
+            let filtered = products;
+            
+            // Filter by category
+            if (currentCategory !== "all") {
+                filtered = filtered.filter(p => p.category === currentCategory);
+            }
+            
+            // Filter by search query
+            if (query.trim()) {
+                filtered = filtered.filter(p => 
+                    p.name.toLowerCase().includes(query.toLowerCase())
+                );
+            }
+            
+            // Sort
+            filtered.sort((a, b) => {
+                switch (currentSort) {
+                    case "name-asc":
+                        return a.name.localeCompare(b.name);
+                    case "name-desc":
+                        return b.name.localeCompare(a.name);
+                    case "price-asc":
+                        return a.price - b.price;
+                    case "price-desc":
+                        return b.price - a.price;
+                    default:
+                        return 0;
+                }
+            });
+            
+            renderProducts(filtered);
+        };
+        
+        const renderProducts = (productsToShow) => {
+            const container = document.getElementById('productsContainer');
+            
+            if (productsToShow.length === 0) {
+                container.innerHTML = '<div class="empty-message">No products found. Try different search or filter!</div>';
+                return;
+            }
+            
+            container.innerHTML = productsToShow.map(product => `
+                <div class="product-card">
+                    <div class="product-image">${product.emoji}</div>
+                    <div class="product-info">
+                        <div class="product-name">${product.name}</div>
+                        <span class="product-category">${product.category.toUpperCase()}</span>
+                        <div class="product-description">
+                            High-quality ${product.category} — Perfect choice for professionals.
+                        </div>
+                        <div class="product-price">
+                            ${formatCurrency(product.price, "NPR")}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        };
+        
+        // ===================================================
+        // EVENT LISTENERS
+        // ===================================================
+        
+        // Search input with DEBOUNCE!
+        const searchInput = document.getElementById('searchInput');
+        const debouncedSearch = debounce((e) => {
+            currentSearchQuery = e.target.value;
+            filterProducts();
+        }, 300);
+        
+        searchInput.addEventListener('input', debouncedSearch);
+        
+        // Category filter buttons
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                currentCategory = e.target.dataset.category;
+                filterProducts();
+            });
+        });
+        
+        // Sort control
+        document.getElementById('sortSelect').addEventListener('change', (e) => {
+            currentSort = e.target.value;
+            filterProducts();
+        });
+        
+        // ===================================================
+        // INITIAL RENDER
+        // ===================================================
+        
+        filterProducts();
+        
+        // ===================================================
+        // DEFENSE NOTES FOR INTERNSHIP
+        // ===================================================
+        
+        console.log(`
+╔════════════════════════════════════════════════════════════╗
+║    WEEK 3 DAY 15 — MODULES & DOM PRACTICE                 ║
+╚════════════════════════════════════════════════════════════╝
+
+Topics Covered:
+✓ ES6 Modules (import/export)
+✓ type="module" in script tag
+✓ DOM manipulation (querySelector, innerHTML, addEventListener)
+✓ Debounce function (performance optimization)
+✓ Event handling (input, click, change)
+✓ Array filtering and sorting
+✓ Template literals for HTML rendering
+
+Key Concept — Debounce:
+- User type: 'l' 'la' 'lap' 'lapt' 'lapto' 'laptop'
+- Without debounce: 6 function calls (each keystroke)
+- With debounce: 1 function call (after 300ms stop)
+
+Real World Use:
+- Search input → debounce → API call
+- Window resize → debounce → recalculate layout
+- Save form → debounce → avoid duplicate saves
+
+Performance = Better!
+        `);
+    </script>
+</body>
+</html>
+
+<!--
+===================================================
+EXPLANATION: HTML5 + Modules + Debounce Pattern
+===================================================
+
+1. type="module" Enable:
+   - ES6 import/export syntax
+   - Modules share scope properly
+   - Script automatically deferred
+
+2. Import from day15-helpers.js:
+   - formatCurrency() → format price as rupees
+   - truncateText() → not used here but available
+   - debounce() → delay search function execution
+
+3. Debounce Search:
+   - User type → input event fire
+   - Debounce cancel previous timeout
+   - Set new 300ms timeout
+   - If user stop typing → timeout fire → search execute
+   - If user type again → timeout cancel → repeat
+
+4. DOM Rendering:
+   - Template literal with backticks
+   - Array.map() for product card HTML
+   - querySelector() for DOM elements
+   - addEventListener() for user interaction
+
+5. State Management:
+   - currentCategory, currentSearchQuery, currentSort
+   - Update on user action
+   - filterProducts() called after each update
+
+This pattern (modules + debounce + DOM) is 
+PRODUCTION-READY code. Modern JavaScript best practices!
+-->

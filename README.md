@@ -47,9 +47,11 @@ By February 19, 2026, I aim to:
 - ✅ Build landing page mini project
 
 ### Week 3 (Dec 22-26)
-- Learn JavaScript fundamentals (variables, functions, DOM manipulation)
-- Create interactive web pages using vanilla JavaScript
-- Understand async/await and API fetching
+- ✅ Master JavaScript fundamentals (variables, scope, closures)
+- ✅ Master array methods (filter, map, reduce, sort)
+- ✅ Learn ES6+ features (destructuring, classes, optional chaining)
+- ✅ Understand async/await and Promise patterns
+- ✅ Build interactive UI with modules and debounce
 
 ### Week 4-5 (Dec 29 - Jan 9)
 - Introduction to React — components, JSX syntax
@@ -80,7 +82,7 @@ By February 19, 2026, I aim to:
 |------|--------|-----------|------------|
 | **Week 1** (Dec 8-12) | ✅ Complete | Dev Environment, HTML, CSS, Git | 100% |
 | **Week 2** (Dec 15-19) | ✅ Complete | CSS Layouts (Flexbox, Grid), Responsive Design, Animations | 100% |
-| **Week 3** (Dec 22-26) | ⏳ Pending | JavaScript Fundamentals | 0% |
+| **Week 3** (Dec 22-26) | ✅ Complete | JavaScript Fundamentals, ES6+, Async, Modules | 100% |
 | **Week 4-5** (Dec 29-Jan 9) | ⏳ Pending | React Introduction | 0% |
 | **Week 6-8** (Jan 12-30) | ⏳ Pending | React Hooks & API | 0% |
 | **Week 9-10** (Feb 2-13) | ⏳ Pending | End-to-End Project | 0% |
@@ -106,12 +108,14 @@ By February 19, 2026, I aim to:
 - [x] Used CSS custom properties for theming
 - [x] Created 5 comprehensive exercises with real patterns
 
-#### ⏳ Week 3 — Upcoming
-- [ ] JavaScript variables and data types
-- [ ] Functions, scope, and closures
-- [ ] Arrow functions and modern JavaScript
-- [ ] DOM manipulation and events
-- [ ] Building interactive JavaScript projects
+#### ✅ Week 3 — Completed
+- [x] Mastered JavaScript variables (var, let, const, hoisting, TDZ)
+- [x] Mastered scope (function, block, lexical, closure)
+- [x] Mastered array methods (filter, map, find, reduce, sort, flat)
+- [x] Learned ES6+ features (destructuring, spread, classes, optional chaining)
+- [x] Mastered async/await (Promise chaining, Promise.all, Promise.allSettled)
+- [x] Built interactive UI with ES6 modules and debounce optimization
+- [x] Created 5 daily exercises + 2 utilities + 1 cheatsheet + summary
 
 #### ⏳ Week 4-5 — Upcoming
 - [ ] React components and JSX
