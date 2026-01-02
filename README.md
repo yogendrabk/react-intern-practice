@@ -53,17 +53,19 @@ By February 19, 2026, I aim to:
 - ✅ Understand async/await and Promise patterns
 - ✅ Build interactive UI with modules and debounce
 
-### Week 4-5 (Dec 29 - Jan 9)
-- Introduction to React — components, JSX syntax
-- State and Props — how data flows in React
-- Build first React application from scratch
+### Week 4 (Dec 29 - Jan 2)
+- ✅ Introduction to React — components, JSX syntax, Virtual DOM
+- ✅ Vite setup and React project structure
+- ✅ Reusable component design system with variant
+- ✅ State and Props — how data flows in React
+- ✅ Build complete React application from scratch
 
-### Week 6-8 (Jan 12 - Jan 30)
+### Week 5-6 (Jan 5 - Jan 16)
 - React Hooks — useState, useEffect, useContext
 - API Integration — fetch data from backend and display in React
 - Error handling and loading states
 
-### Week 9-10 (Feb 2 - Feb 13)
+### Week 7-9 (Jan 19 - Feb 6)
 - Build complete React project end-to-end
 - Code review and optimization
 - Prepare presentation for company
@@ -83,10 +85,10 @@ By February 19, 2026, I aim to:
 | **Week 1** (Dec 8-12) | ✅ Complete | Dev Environment, HTML, CSS, Git | 100% |
 | **Week 2** (Dec 15-19) | ✅ Complete | CSS Layouts (Flexbox, Grid), Responsive Design, Animations | 100% |
 | **Week 3** (Dec 22-26) | ✅ Complete | JavaScript Fundamentals, ES6+, Async, Modules | 100% |
-| **Week 4-5** (Dec 29-Jan 9) | ⏳ Pending | React Introduction | 0% |
-| **Week 6-8** (Jan 12-30) | ⏳ Pending | React Hooks & API | 0% |
-| **Week 9-10** (Feb 2-13) | ⏳ Pending | End-to-End Project | 0% |
-| **Week 11** (Feb 16-19) | ⏳ Pending | Final Project & Demo | 0% |
+| **Week 4** (Dec 29-Jan 2) | ✅ Complete | React Components, Props, Vite Setup, Design System | 100% |
+| **Week 5-6** (Jan 5-16) | ⏳ Pending | React Hooks & API Integration | 0% |
+| **Week 7-9** (Jan 19-Feb 6) | ⏳ Pending | Advanced Projects & Portfolio | 0% |
+| **Week 10-11** (Feb 9-19) | ⏳ Pending | Final Project & Presentation | 0% |
 
 ### Weekly Completion Checklist
 
@@ -117,13 +119,21 @@ By February 19, 2026, I aim to:
 - [x] Built interactive UI with ES6 modules and debounce optimization
 - [x] Created 5 daily exercises + 2 utilities + 1 cheatsheet + summary
 
-#### ⏳ Week 4-5 — Upcoming
-- [ ] React components and JSX
-- [ ] Props and state basics
-- [ ] React hooks introduction
-- [ ] Building first React application
+#### ✅ Week 4 — Completed
+- [x] React core concepts documentation (JSX, Virtual DOM, framework comparison)
+- [x] Vite project setup with React 18 + Tailwind CSS
+- [x] Project structure explanation (every file breakdown)
+- [x] Reusable components design system (Button, Badge, Avatar)
+- [x] Layout components (Card, Navbar, Footer with responsive design)
+- [x] Home page showcase all components together
+- [x] Props patterns comprehensive demo (5 patterns)
+- [x] Children prop and slot pattern explanation
+- [x] Mini settings panel state management example
+- [x] Week 4 summary documentation
+- [x] Created 5 daily commits with proper timestamps
+- [x] 2,500+ lines of React code and documentation
 
-#### ⏳ Week 6-8 — Upcoming
+#### ⏳ Week 5-6 — Upcoming
 - [ ] Advanced hooks (useEffect, useContext, useReducer)
 - [ ] API integration and data fetching
 - [ ] Error handling and loading states
