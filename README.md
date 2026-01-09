@@ -86,8 +86,9 @@ By February 19, 2026, I aim to:
 | **Week 2** (Dec 15-19) | ✅ Complete | CSS Layouts (Flexbox, Grid), Responsive Design, Animations | 100% |
 | **Week 3** (Dec 22-26) | ✅ Complete | JavaScript Fundamentals, ES6+, Async, Modules | 100% |
 | **Week 4** (Dec 29-Jan 2) | ✅ Complete | React Components, Props, Vite Setup, Design System | 100% |
-| **Week 5-6** (Jan 5-16) | ⏳ Pending | React Hooks & API Integration | 0% |
-| **Week 7-9** (Jan 19-Feb 6) | ⏳ Pending | Advanced Projects & Portfolio | 0% |
+| **Week 5** (Jan 5-9) | ✅ Complete | React Hooks (useState, useEffect), API Integration, localStorage | 100% |
+| **Week 6-7** (Jan 12-23) | ⏳ Pending | Context API, Custom Hooks, Advanced Patterns | 0% |
+| **Week 8-9** (Jan 26-Feb 6) | ⏳ Pending | Full-Stack Projects & Portfolio | 0% |
 | **Week 10-11** (Feb 9-19) | ⏳ Pending | Final Project & Presentation | 0% |
 
 ### Weekly Completion Checklist
@@ -133,7 +134,22 @@ By February 19, 2026, I aim to:
 - [x] Created 5 daily commits with proper timestamps
 - [x] 2,500+ lines of React code and documentation
 
-#### ⏳ Week 5-6 — Upcoming
+#### ✅ Week 5 — Completed
+- [x] Day 21: Advanced useState patterns (5 patterns: lazy init, state from props, derived state, colocation, lifting)
+- [x] Day 22: Advanced useEffect patterns (6 patterns: mount-only, specific dependency, multiple dependencies, cleanup, fetching, debounce)
+- [x] Day 22: Comprehensive useEffect reference guide (550+ lines with decision tree, examples, mistakes)
+- [x] Day 23: Real API integration — UserDirectory with JSONPlaceholder
+- [x] Day 23: Features implemented (search, sort, loading skeleton, error handling, race condition prevention)
+- [x] Day 24: Portfolio page showcasing component reuse (Badge, Card, Button, Avatar)
+- [x] Day 24: Portfolio sections (hero, skills grid, projects showcase, timeline, about)
+- [x] Day 25: TodoApp with full functionality (add, complete, delete, filter, reorder)
+- [x] Day 25: localStorage persistence with useEffect pattern (load on mount, save on change)
+- [x] Day 25: React Router setup with /portfolio and /todo routes
+- [x] Day 25: Week 5 summary documentation (1,300+ lines total)
+- [x] Created 5 daily commits with proper timestamps
+- [x] 1,300+ lines of production-ready React code
+
+#### ⏳ Week 6-7 — Upcoming
 - [ ] Advanced hooks (useEffect, useContext, useReducer)
 - [ ] API integration and data fetching
 - [ ] Error handling and loading states
@@ -180,4 +196,4 @@ This is your first professional step into tech. You will feel overwhelmed someti
 
 ---
 
-*Last Updated: December 12, 2025 (Week 1 Complete — Ready for Week 2 🚀)*
+*Last Updated: January 9, 2026 (Week 5 Complete — React Hooks Mastered 🚀)*
