@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bootstrap 5 Components Practice</title>
+  
+  <!-- Bootstrap 5 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  
+  <style>
+    body {
+      background-color: #f8f9fa;
+      padding: 20px;
+    }
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: bold;
+      margin: 30px 0 20px 0;
+      color: #333;
+      border-bottom: 3px solid #0d6efd;
+      padding-bottom: 10px;
+    }
+    .demo-box {
+      background: white;
+      padding: 20px;
+      margin: 15px 0;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .note {
+      background-color: #e7f3ff;
+      border-left: 4px solid #0d6efd;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 4px;
+      font-size: 0.9rem;
+    }
+    code {
+      background-color: #f5f5f5;
+      padding: 2px 6px;
+      border-radius: 3px;
+      color: #d63384;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <h1 class="mb-4" style="text-align: center; color: #0d6efd;">
+      🎨 Bootstrap 5 Components Practice
+    </h1>
+    <p style="text-align: center; color: #666; margin-bottom: 30px;">
+      Learning Bootstrap 5 component for React integration (Week 6, Day 29)
+    </p>
+
+    <!-- ============================================================ -->
+    <!-- 1. NAVBAR WITH COLLAPSE -->
+    <!-- ============================================================ -->
+    <div class="section-title">1️⃣ Navbar with Collapse (Mobile Responsive)</div>
+    <div class="demo-box">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border">
+        <div class="container-fluid">
+          <!-- Brand -->
+          <a class="navbar-brand fw-bold" href="#">MyApp</a>
+          
+          <!-- Toggle Button for Mobile -->
+          <button 
+            class="navbar-toggler" 
+            type="button" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav" 
+            aria-expanded="false" 
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          
+          <!-- Collapse Container -->
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+              <li class="nav-item"><a class="nav-link" href="#">Services</a></li>
+              <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <div class="note">
+        <strong>Key Attribute:</strong> <code>data-bs-toggle="collapse"</code> + <code>data-bs-target="#navbarNav"</code>
+        Connect button to collapse element. Mobile button toggle navbar visibility.
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 2. MODAL WITH TRIGGER BUTTON -->
+    <!-- ============================================================ -->
+    <div class="section-title">2️⃣ Modal (Popup Dialog)</div>
+    <div class="demo-box">
+      <!-- Trigger Button -->
+      <button 
+        type="button" 
+        class="btn btn-primary" 
+        data-bs-toggle="modal" 
+        data-bs-target="#myModal"
+      >
+        📋 Open Modal
+      </button>
+
+      <!-- Modal Content -->
+      <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalLabel">Welcome!</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              This is modal popup. Click button → modal show. Click X or outside → modal hidden.
+              <p class="mt-2 text-muted">Bootstrap control with <code>data-bs-toggle</code> attribute.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="note">
+        <strong>How it work:</strong> Button have <code>data-bs-toggle="modal"</code> + <code>data-bs-target="#myModal"</code>.
+        Bootstrap JavaScript listen click, find #myModal, show it. No custom code needed!
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 3. CAROUSEL (Image Slider) -->
+    <!-- ============================================================ -->
+    <div class="section-title">3️⃣ Carousel (Image Slider)</div>
+    <div class="demo-box">
+      <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="bg-primary text-white text-center p-5">
+              <h4>Slide 1</h4>
+              <p>Learn Bootstrap component</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="bg-success text-white text-center p-5">
+              <h4>Slide 2</h4>
+              <p>Practice for React</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="bg-danger text-white text-center p-5">
+              <h4>Slide 3</h4>
+              <p>Week 6 exercise</p>
+            </div>
+          </div>
+        </div>
+        <!-- Previous Button -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </button>
+        <!-- Next Button -->
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </button>
+      </div>
+      <div class="note">
+        <strong>Attribute:</strong> <code>data-bs-ride="carousel"</code> auto-rotate slides.
+        <code>carousel-item</code> each slide. Can add images or content inside.
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 4. ACCORDION (Expandable List) -->
+    <!-- ============================================================ -->
+    <div class="section-title">4️⃣ Accordion (Expandable List)</div>
+    <div class="demo-box">
+      <div class="accordion" id="accordionExample">
+        <!-- Item 1 -->
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+              What is Bootstrap?
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              Bootstrap CSS framework for responsive web design.
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+              Why use Bootstrap?
+            </button>
+          </h2>
+          <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              Save time with pre-built component. Responsive design work automatically.
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+              Bootstrap + React?
+            </button>
+          </h2>
+          <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              Use Bootstrap CSS in React. For interactive part, need useState hook instead of data-bs attribute.
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 4 -->
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour">
+              What learning today?
+            </button>
+          </h2>
+          <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              All Bootstrap component. Tomorrow integrate into React (Week 6, Day 30).
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="note">
+        <strong>Key:</strong> <code>data-bs-parent="#accordionExample"</code> mean only one can expand at time.
+        Remove for multiple expand allowed.
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 5. TOAST (Notification) -->
+    <!-- ============================================================ -->
+    <div class="section-title">5️⃣ Toast (Notification Message)</div>
+    <div class="demo-box">
+      <button 
+        type="button" 
+        class="btn btn-info" 
+        onclick="document.getElementById('toastExample').classList.add('show')"
+      >
+        📨 Show Toast
+      </button>
+
+      <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <div 
+          id="toastExample"
+          class="toast" 
+          role="alert" 
+          aria-live="assertive" 
+          aria-atomic="true"
+        >
+          <div class="toast-header">
+            <strong class="me-auto">Notification</strong>
+            <small>just now</small>
+            <button 
+              type="button" 
+              class="btn-close" 
+              data-bs-dismiss="toast" 
+              aria-label="Close"
+              onclick="document.getElementById('toastExample').classList.remove('show')"
+            ></button>
+          </div>
+          <div class="toast-body">
+            Hello! This is toast notification. Appear briefly then fade away.
+          </div>
+        </div>
+      </div>
+      <div class="note">
+        <strong>Use:</strong> Toast for temporary message (success, error, info). Not persistent.
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 6. FORM WITH VALIDATION -->
+    <!-- ============================================================ -->
+    <div class="section-title">6️⃣ Form with Validation Classes</div>
+    <div class="demo-box">
+      <form>
+        <div class="mb-3">
+          <label class="form-label">Email address (valid)</label>
+          <input type="email" class="form-control is-valid" placeholder="Enter email" value="yogendra@example.com" />
+          <div class="valid-feedback">
+            ✓ Email look good!
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Password (invalid)</label>
+          <input type="password" class="form-control is-invalid" placeholder="Enter password" />
+          <div class="invalid-feedback">
+            ✗ Password too short (min 6 character)
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Message</label>
+          <textarea class="form-control" rows="3" placeholder="Type message..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+      <div class="note">
+        <strong>Classes:</strong> <code>is-valid</code> (green) + <code>is-invalid</code> (red).
+        <code>valid-feedback</code> / <code>invalid-feedback</code> show message.
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 7. TABLE WITH STRIPED & HOVER -->
+    <!-- ============================================================ -->
+    <div class="section-title">7️⃣ Table (Striped & Hover)</div>
+    <div class="demo-box">
+      <table class="table table-striped table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Yogendra</td>
+            <td>yogendra@tech.com</td>
+            <td><span class="badge bg-success">Active</span></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>User Two</td>
+            <td>user2@tech.com</td>
+            <td><span class="badge bg-warning">Pending</span></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>User Three</td>
+            <td>user3@tech.com</td>
+            <td><span class="badge bg-danger">Inactive</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="note">
+        <strong>Classes:</strong> <code>table-striped</code> (alternate row color).
+        <code>table-hover</code> (highlight on mouse over).
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 8. OFFCANVAS (Sidebar) -->
+    <!-- ============================================================ -->
+    <div class="section-title">8️⃣ Offcanvas (Sidebar)</div>
+    <div class="demo-box">
+      <button 
+        class="btn btn-outline-primary" 
+        type="button" 
+        data-bs-toggle="offcanvas" 
+        data-bs-target="#offcanvasExample"
+      >
+        ☰ Open Sidebar
+      </button>
+
+      <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title">Sidebar Menu</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="list-group">
+            <li class="list-group-item"><a href="#">🏠 Home</a></li>
+            <li class="list-group-item"><a href="#">⚙️ Settings</a></li>
+            <li class="list-group-item"><a href="#">👤 Profile</a></li>
+            <li class="list-group-item"><a href="#">🚪 Logout</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="note">
+        <strong>Offcanvas:</strong> Sidebar that slide in from side.
+        <code>offcanvas-start</code> (left), <code>offcanvas-end</code> (right).
+      </div>
+    </div>
+
+    <!-- Summary -->
+    <div class="section-title">📚 Summary</div>
+    <div class="demo-box">
+      <h5>Bootstrap 5 Data Attributes:</h5>
+      <ul>
+        <li><code>data-bs-toggle="collapse"</code> → Collapsible element</li>
+        <li><code>data-bs-toggle="modal"</code> → Show modal</li>
+        <li><code>data-bs-toggle="tab"</code> → Tab switching</li>
+        <li><code>data-bs-target="#id"</code> → Target element ID</li>
+        <li><code>data-bs-dismiss="modal"</code> → Close modal</li>
+      </ul>
+      <p class="mt-3 text-muted">
+        <strong>Note:</strong> These attribute work with Bootstrap JavaScript library.
+        Bootstrap CDN include JavaScript file automatically.
+      </p>
+      <p class="text-muted">
+        <strong>In React:</strong> For simple CSS (table, badge, button) can use data-bs directly.
+        For interactive (modal, accordion open/close), better use React state + useState hook
+        instead of data-bs attribute. Better control, more React way.
+      </p>
+    </div>
+  </div>
+
+  <!-- Bootstrap JavaScript Bundle (include Popper) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
