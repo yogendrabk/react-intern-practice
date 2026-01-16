@@ -87,7 +87,8 @@ By February 19, 2026, I aim to:
 | **Week 3** (Dec 22-26) | ✅ Complete | JavaScript Fundamentals, ES6+, Async, Modules | 100% |
 | **Week 4** (Dec 29-Jan 2) | ✅ Complete | React Components, Props, Vite Setup, Design System | 100% |
 | **Week 5** (Jan 5-9) | ✅ Complete | React Hooks (useState, useEffect), API Integration, localStorage | 100% |
-| **Week 6-7** (Jan 12-23) | ⏳ Pending | Context API, Custom Hooks, Advanced Patterns | 0% |
+| **Week 6** (Jan 12-16) | ✅ Complete | React Router, Protected Routes, API Promise.all, Bootstrap 5 | 100% |
+| **Week 7** (Jan 19-23) | ⏳ Pending | Context API, Custom Hooks, Advanced Patterns | 0% |
 | **Week 8-9** (Jan 26-Feb 6) | ⏳ Pending | Full-Stack Projects & Portfolio | 0% |
 | **Week 10-11** (Feb 9-19) | ⏳ Pending | Final Project & Presentation | 0% |
 
@@ -149,11 +150,33 @@ By February 19, 2026, I aim to:
 - [x] Created 5 daily commits with proper timestamps
 - [x] 1,300+ lines of production-ready React code
 
-#### ⏳ Week 6-7 — Upcoming
-- [ ] Advanced hooks (useEffect, useContext, useReducer)
-- [ ] API integration and data fetching
-- [ ] Error handling and loading states
-- [ ] Performance optimization
+#### ✅ Week 6 — Completed
+- [x] Day 26: Complete React Router v6 setup (9 routes, dynamic parameters, useParams)
+- [x] Day 26: About page with internship overview and achievements (350+ lines)
+- [x] Day 26: NotFound 404 page with debugging info
+- [x] Day 26: Navbar update to use Link component (no full-page reload, SPA navigation)
+- [x] Day 26: Comprehensive routing architecture documentation with defense Q&A
+- [x] Day 27: ProtectedRoute wrapper component for authentication
+- [x] Day 27: LoginPage with form validation (email, password, mock auth)
+- [x] Day 27: Dashboard page with stats cards and recent activity
+- [x] Day 27: Authentication flow with props drilling (App → ProtectedRoute → Pages)
+- [x] Day 28: UsersPage with search, sort, filter, and loading states
+- [x] Day 28: UserDetail page with useParams hook
+- [x] Day 28: Promise.all parallel fetching pattern (3 simultaneous requests)
+- [x] Day 28: Tab switching component (Posts/Todos tabs)
+- [x] Day 29: Bootstrap 5 component practice HTML file (8 components)
+- [x] Day 29: Bootstrap-React integration guide and best practices
+- [x] Day 30: Portfolio.jsx Bootstrap modal, progress bars, accordion, breadcrumb
+- [x] Day 30: Week 6 comprehensive summary documentation
+- [x] Created 5 daily commits with proper timestamps (ff8e959, 6ae233c, 0f46148, e5c0ffe, [Day 30])
+- [x] 2,500+ lines of production-ready React code and documentation
+- [x] Mastered React Router v6, Protected Routes, API optimization, Bootstrap integration
+
+#### ⏳ Week 7 — Upcoming
+- [ ] Context API for global state management (replacing props drilling)
+- [ ] Custom hooks for reusable logic
+- [ ] Advanced patterns (useReducer, useCallback, useMemo)
+- [ ] Performance optimization techniques
 
 #### ⏳ Week 9-10 — Upcoming
 - [ ] Full-featured React project
@@ -196,4 +219,4 @@ This is your first professional step into tech. You will feel overwhelmed someti
 
 ---
 
-*Last Updated: January 9, 2026 (Week 5 Complete — React Hooks Mastered 🚀)*
+*Last Updated: January 16, 2026 (Week 6 Complete — React Router & Bootstrap Mastered 🚀)*
