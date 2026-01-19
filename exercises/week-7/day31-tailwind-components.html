@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 31 — Tailwind Advanced Components</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Smooth transitions */
+        * {
+            @apply transition-all duration-200;
+        }
+        
+        /* SVG Icons inline styling */
+        .icon-bell::before {
+            content: "🔔";
+            display: inline-block;
+        }
+        
+        .icon-user::before {
+            content: "👤";
+            display: inline-block;
+        }
+        
+        .icon-check::before {
+            content: "✓";
+            display: inline-block;
+            margin-right: 0.5rem;
+        }
+        
+        .icon-edit::before {
+            content: "✏️";
+        }
+        
+        .icon-logout::before {
+            content: "🚪";
+        }
+        
+        /* Animations */
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-slide-down {
+            animation: slideDown 0.2s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 p-8">
+    <div class="max-w-7xl mx-auto">
+        <h1 class="text-4xl font-bold mb-4 text-gray-900">Tailwind Advanced Components</h1>
+        <p class="text-gray-600 mb-12">Production-ready UI components built with Tailwind CSS. Each component uses advanced utility combinations for polish and interactivity.</p>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- ===== 1. NOTIFICATION DROPDOWN ===== -->
+            <section class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold mb-6 text-gray-900">1. Notification Dropdown</h2>
+                
+                <!-- Explanation box -->
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
+                    <p class="text-blue-900 text-sm"><strong>Tailwind Utilities:</strong> relative, inline-block, cursor-pointer, absolute, shadow-lg, z-10, rounded-lg, bg-white, border, divide-y, hover:bg-gray-50, group</p>
+                </div>
+                
+                <!-- Component -->
+                <div class="relative inline-block">
+                    <!-- Bell button -->
+                    <button class="relative p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg">
+                        <span class="icon-bell text-2xl"></span>
+                        <!-- Badge with count -->
+                        <span class="absolute top-0 right-0 bg-red-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
+                            3
+                        </span>
+                    </button>
+                    
+                    <!-- Dropdown menu (visible in demo) -->
+                    <div class="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 z-10 animate-slide-down">
+                        <!-- Header -->
+                        <div class="px-4 py-3 border-b border-gray-200 bg-gray-50">
+                            <h3 class="font-semibold text-gray-900">Notifications</h3>
+                        </div>
+                        
+                        <!-- Notification list -->
+                        <div class="divide-y divide-gray-200 max-h-96 overflow-y-auto">
+                            <!-- Unread notification -->
+                            <div class="px-4 py-3 hover:bg-blue-50 cursor-pointer border-l-4 border-l-blue-500 bg-blue-50">
+                                <div class="flex justify-between items-start">
+                                    <div class="flex-1">
+                                        <p class="font-semibold text-gray-900 text-sm">New project assigned</p>
+                                        <p class="text-gray-600 text-xs mt-1">You have been assigned to the React internship project.</p>
+                                    </div>
+                                    <span class="text-xs text-gray-500">2m ago</span>
+                                </div>
+                                <!-- Unread indicator -->
+                                <div class="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
+                            </div>
+                            
+                            <!-- Read notification -->
+                            <div class="px-4 py-3 hover:bg-gray-50 cursor-pointer">
+                                <div class="flex justify-between items-start">
+                                    <div class="flex-1">
+                                        <p class="font-semibold text-gray-900 text-sm">Mentor comment</p>
+                                        <p class="text-gray-600 text-xs mt-1">Your mentor replied to your portfolio submission.</p>
+                                    </div>
+                                    <span class="text-xs text-gray-500">1h ago</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Read notification -->
+                            <div class="px-4 py-3 hover:bg-gray-50 cursor-pointer">
+                                <div class="flex justify-between items-start">
+                                    <div class="flex-1">
+                                        <p class="font-semibold text-gray-900 text-sm">Code review complete</p>
+                                        <p class="text-gray-600 text-xs mt-1">Your pull request has been reviewed and approved.</p>
+                                    </div>
+                                    <span class="text-xs text-gray-500">3h ago</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Footer -->
+                        <div class="px-4 py-3 border-t border-gray-200 text-center">
+                            <a href="#" class="text-blue-600 hover:text-blue-700 font-semibold text-sm">View all notifications</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- ===== 2. USER PROFILE DROPDOWN ===== -->
+            <section class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold mb-6 text-gray-900">2. User Profile Dropdown</h2>
+                
+                <!-- Explanation box -->
+                <div class="bg-green-50 border-l-4 border-green-500 p-4 mb-6">
+                    <p class="text-green-900 text-sm"><strong>Tailwind Utilities:</strong> flex, items-center, gap, ring, ring-2, ring-offset, w-10 h-10, rounded-full, space-y, space-x, text-sm, text-gray-700</p>
+                </div>
+                
+                <!-- Component -->
+                <div class="relative inline-block">
+                    <!-- Profile button -->
+                    <button class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-100">
+                        <!-- Avatar -->
+                        <div class="w-10 h-10 bg-gradient-to-br from-purple-400 to-blue-500 rounded-full flex items-center justify-center text-white font-bold ring-2 ring-white">
+                            YB
+                        </div>
+                        <div class="hidden sm:block">
+                            <p class="font-semibold text-gray-900 text-sm">Yogendra BK</p>
+                            <p class="text-gray-500 text-xs">yogendra246@gmail.com</p>
+                        </div>
+                    </button>
+                    
+                    <!-- Dropdown menu (visible in demo) -->
+                    <div class="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 z-10 animate-slide-down">
+                        <!-- Profile section -->
+                        <div class="px-4 py-4 border-b border-gray-200 bg-gray-50">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 bg-gradient-to-br from-purple-400 to-blue-500 rounded-full flex items-center justify-center text-white font-bold">
+                                    YB
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-gray-900">Yogendra BK</p>
+                                    <p class="text-xs text-gray-600">Intern</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Menu items -->
+                        <div class="py-2 space-y-1">
+                            <a href="#" class="px-4 py-2 flex items-center gap-3 hover:bg-gray-100 text-gray-700 text-sm">
+                                <span class="icon-user"></span> Profile
+                            </a>
+                            <a href="#" class="px-4 py-2 flex items-center gap-3 hover:bg-gray-100 text-gray-700 text-sm">
+                                <span class="icon-edit"></span> Settings
+                            </a>
+                        </div>
+                        
+                        <!-- Divider -->
+                        <div class="border-t border-gray-200"></div>
+                        
+                        <!-- Logout -->
+                        <div class="py-2">
+                            <button class="w-full px-4 py-2 flex items-center gap-3 hover:bg-red-50 text-red-600 text-sm font-semibold text-left">
+                                <span class="icon-logout"></span> Logout
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- ===== 3. DATA TABLE WITH SORTABLE HEADERS ===== -->
+            <section class="bg-white rounded-lg shadow-md p-6 col-span-1 lg:col-span-2">
+                <h2 class="text-2xl font-bold mb-6 text-gray-900">3. Data Table with Sorting</h2>
+                
+                <!-- Explanation box -->
+                <div class="bg-purple-50 border-l-4 border-purple-500 p-4 mb-6">
+                    <p class="text-purple-900 text-sm"><strong>Tailwind Utilities:</strong> overflow-x-auto, table, w-full, th, tr, td, px-6 py-3, text-left, hover:bg-gray-50, even:bg-gray-50, border-b, text-sm, font-semibold</p>
+                </div>
+                
+                <!-- Component -->
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <!-- Header -->
+                        <thead class="bg-gray-100 border-b-2 border-gray-200">
+                            <tr>
+                                <th class="px-6 py-3 text-left font-semibold text-gray-900">
+                                    <button class="flex items-center gap-2 hover:text-blue-600">
+                                        Name <span class="text-gray-400">↕</span>
+                                    </button>
+                                </th>
+                                <th class="px-6 py-3 text-left font-semibold text-gray-900">
+                                    <button class="flex items-center gap-2 hover:text-blue-600">
+                                        Email <span class="text-gray-400">↕</span>
+                                    </button>
+                                </th>
+                                <th class="px-6 py-3 text-left font-semibold text-gray-900">
+                                    <button class="flex items-center gap-2 hover:text-blue-600">
+                                        Role <span class="text-gray-400">↕</span>
+                                    </button>
+                                </th>
+                                <th class="px-6 py-3 text-left font-semibold text-gray-900">Status</th>
+                                <th class="px-6 py-3 text-left font-semibold text-gray-900">Action</th>
+                            </tr>
+                        </thead>
+                        
+                        <!-- Body with alternating background -->
+                        <tbody>
+                            <!-- Row 1 - Highlighted -->
+                            <tr class="border-b hover:bg-blue-50 bg-white">
+                                <td class="px-6 py-3 font-semibold text-gray-900">Yogendra BK</td>
+                                <td class="px-6 py-3 text-gray-600">yogendra246@gmail.com</td>
+                                <td class="px-6 py-3 text-gray-600">Intern</td>
+                                <td class="px-6 py-3">
+                                    <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">Active</span>
+                                </td>
+                                <td class="px-6 py-3">
+                                    <button class="text-blue-600 hover:text-blue-700 font-semibold text-xs">Edit</button>
+                                </td>
+                            </tr>
+                            
+                            <!-- Row 2 -->
+                            <tr class="border-b hover:bg-blue-50 bg-gray-50">
+                                <td class="px-6 py-3 font-semibold text-gray-900">Priya Singh</td>
+                                <td class="px-6 py-3 text-gray-600">priya@techtatra.com</td>
+                                <td class="px-6 py-3 text-gray-600">Mentor</td>
+                                <td class="px-6 py-3">
+                                    <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">Active</span>
+                                </td>
+                                <td class="px-6 py-3">
+                                    <button class="text-blue-600 hover:text-blue-700 font-semibold text-xs">Edit</button>
+                                </td>
+                            </tr>
+                            
+                            <!-- Row 3 -->
+                            <tr class="border-b hover:bg-blue-50 bg-white">
+                                <td class="px-6 py-3 font-semibold text-gray-900">Rajeev Kumar</td>
+                                <td class="px-6 py-3 text-gray-600">rajeev@techtatra.com</td>
+                                <td class="px-6 py-3 text-gray-600">Admin</td>
+                                <td class="px-6 py-3">
+                                    <span class="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-semibold">Pending</span>
+                                </td>
+                                <td class="px-6 py-3">
+                                    <button class="text-blue-600 hover:text-blue-700 font-semibold text-xs">Edit</button>
+                                </td>
+                            </tr>
+                            
+                            <!-- Row 4 -->
+                            <tr class="border-b hover:bg-blue-50 bg-gray-50">
+                                <td class="px-6 py-3 font-semibold text-gray-900">Anjali Patel</td>
+                                <td class="px-6 py-3 text-gray-600">anjali@techtatra.com</td>
+                                <td class="px-6 py-3 text-gray-600">Intern</td>
+                                <td class="px-6 py-3">
+                                    <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">Active</span>
+                                </td>
+                                <td class="px-6 py-3">
+                                    <button class="text-blue-600 hover:text-blue-700 font-semibold text-xs">Edit</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Pagination -->
+                <div class="mt-6 flex items-center justify-between">
+                    <p class="text-sm text-gray-600">Showing 4 of 12 users</p>
+                    <div class="flex gap-2">
+                        <button class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-sm font-semibold text-gray-700">
+                            ← Previous
+                        </button>
+                        <button class="px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-semibold">
+                            1
+                        </button>
+                        <button class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-sm font-semibold text-gray-700">
+                            2
+                        </button>
+                        <button class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-sm font-semibold text-gray-700">
+                            3
+                        </button>
+                        <button class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-sm font-semibold text-gray-700">
+                            Next →
+                        </button>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- ===== 4. KANBAN BOARD ===== -->
+            <section class="bg-white rounded-lg shadow-md p-6 col-span-1 lg:col-span-2">
+                <h2 class="text-2xl font-bold mb-6 text-gray-900">4. Kanban Board</h2>
+                
+                <!-- Explanation box -->
+                <div class="bg-orange-50 border-l-4 border-orange-500 p-4 mb-6">
+                    <p class="text-orange-900 text-sm"><strong>Tailwind Utilities:</strong> grid, grid-cols-3, gap, bg-gray-100, rounded-lg, p-4, space-y, cursor-grab, shadow-sm, hover:shadow-md, active:cursor-grabbing, min-h-96</p>
+                </div>
+                
+                <!-- Component -->
+                <div class="grid grid-cols-3 gap-6">
+                    <!-- TODO Column -->
+                    <div class="bg-gray-100 rounded-lg p-4 min-h-96">
+                        <h3 class="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                            <span class="w-3 h-3 bg-gray-400 rounded-full"></span>
+                            Todo <span class="ml-auto text-gray-500 text-sm">4</span>
+                        </h3>
+                        <div class="space-y-3">
+                            <!-- Card 1 -->
+                            <div class="bg-white rounded-lg p-3 shadow-sm hover:shadow-md cursor-grab active:cursor-grabbing border-l-4 border-l-gray-400">
+                                <p class="font-semibold text-gray-900 text-sm">Setup React Router</p>
+                                <p class="text-gray-600 text-xs mt-1">Implement routing architecture</p>
+                                <div class="flex gap-2 mt-2">
+                                    <span class="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs font-semibold">React</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Card 2 -->
+                            <div class="bg-white rounded-lg p-3 shadow-sm hover:shadow-md cursor-grab active:cursor-grabbing border-l-4 border-l-gray-400">
+                                <p class="font-semibold text-gray-900 text-sm">API Integration</p>
+                                <p class="text-gray-600 text-xs mt-1">Connect to backend endpoints</p>
+                                <div class="flex gap-2 mt-2">
+                                    <span class="px-2 py-1 bg-purple-100 text-purple-700 rounded text-xs font-semibold">API</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Card 3 -->
+                            <div class="bg-white rounded-lg p-3 shadow-sm hover:shadow-md cursor-grab active:cursor-grabbing border-l-4 border-l-gray-400">
+                                <p class="font-semibold text-gray-900 text-sm">Responsive Design</p>
+                                <p class="text-gray-600 text-xs mt-1">Mobile and tablet layouts</p>
+                                <div class="flex gap-2 mt-2">
+                                    <span class="px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-semibold">CSS</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Card 4 -->
+                            <div class="bg-white rounded-lg p-3 shadow-sm hover:shadow-md cursor-grab active:cursor-grabbing border-l-4 border-l-gray-400">
+                                <p class="font-semibold text-gray-900 text-sm">Add Unit Tests</p>
+                                <p class="text-gray-600 text-xs mt-1">Test components with Jest</p>
+                                <div class="flex gap-2 mt-2">
+                                    <span class="px-2 py-1 bg-red-100 text-red-700 rounded text-xs font-semibold">Testing</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- IN PROGRESS Column -->
+                    <div class="bg-gray-100 rounded-lg p-4 min-h-96">
+                        <h3 class="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                            <span class="w-3 h-3 bg-blue-500 rounded-full"></span>
+                            In Progress <span class="ml-auto text-gray-500 text-sm">2</span>
+                        </h3>
+                        <div class="space-y-3">
+                            <!-- Card 1 -->
+                            <div class="bg-white rounded-lg p-3 shadow-sm hover:shadow-md cursor-grab active:cursor-grabbing border-l-4 border-l-blue-500">
+                                <p class="font-semibold text-gray-900 text-sm">Build Auth System</p>
+                                <p class="text-gray-600 text-xs mt-1">Login, logout, token management</p>
+                                <div class="flex gap-2 mt-2">
+                                    <span class="px-2 py-1 bg-yellow-100 text-yellow-700 rounded text-xs font-semibold">Auth</span>
+                                </div>
+                                <div class="mt-2 w-full bg-gray-200 rounded-full h-1">
+                                    <div class="bg-blue-500 h-1 rounded-full" style="width: 65%"></div>
+                                </div>
+                                <p class="text-gray-500 text-xs mt-1">65% complete</p>
+                            </div>
+                            
+                            <!-- Card 2 -->
+                            <div class="bg-white rounded-lg p-3 shadow-sm hover:shadow-md cursor-grab active:cursor-grabbing border-l-4 border-l-blue-500">
+                                <p class="font-semibold text-gray-900 text-sm">Tailwind Theming</p>
+                                <p class="text-gray-600 text-xs mt-1">Custom colors and components</p>
+                                <div class="flex gap-2 mt-2">
+                                    <span class="px-2 py-1 bg-indigo-100 text-indigo-700 rounded text-xs font-semibold">Design</span>
+                                </div>
+                                <div class="mt-2 w-full bg-gray-200 rounded-full h-1">
+                                    <div class="bg-blue-500 h-1 rounded-full" style="width: 80%"></div>
+                                </div>
+                                <p class="text-gray-500 text-xs mt-1">80% complete</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DONE Column -->
+                    <div class="bg-gray-100 rounded-lg p-4 min-h-96">
+                        <h3 class="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                            <span class="w-3 h-3 bg-green-500 rounded-full"></span>
+                            Done <span class="ml-auto text-gray-500 text-sm">5</span>
+                        </h3>
+                        <div class="space-y-3">
+                            <!-- Card 1 -->
+                            <div class="bg-white rounded-lg p-3 shadow-sm hover:shadow-md cursor-grab active:cursor-grabbing border-l-4 border-l-green-500 opacity-75">
+                                <div class="flex items-start gap-2">
+                                    <span class="icon-check text-green-600 font-bold"></span>
+                                    <div>
+                                        <p class="font-semibold text-gray-900 text-sm line-through">HTML Semantics</p>
+                                        <p class="text-gray-600 text-xs mt-1">Complete semantic markup</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Card 2 -->
+                            <div class="bg-white rounded-lg p-3 shadow-sm hover:shadow-md cursor-grab active:cursor-grabbing border-l-4 border-l-green-500 opacity-75">
+                                <div class="flex items-start gap-2">
+                                    <span class="icon-check text-green-600 font-bold"></span>
+                                    <div>
+                                        <p class="font-semibold text-gray-900 text-sm line-through">CSS Layouts</p>
+                                        <p class="text-gray-600 text-xs mt-1">Flexbox and Grid mastery</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Card 3 -->
+                            <div class="bg-white rounded-lg p-3 shadow-sm hover:shadow-md cursor-grab active:cursor-grabbing border-l-4 border-l-green-500 opacity-75">
+                                <div class="flex items-start gap-2">
+                                    <span class="icon-check text-green-600 font-bold"></span>
+                                    <div>
+                                        <p class="font-semibold text-gray-900 text-sm line-through">JavaScript ES6+</p>
+                                        <p class="text-gray-600 text-xs mt-1">Advanced JS patterns</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Card 4 -->
+                            <div class="bg-white rounded-lg p-3 shadow-sm hover:shadow-md cursor-grab active:cursor-grabbing border-l-4 border-l-green-500 opacity-75">
+                                <div class="flex items-start gap-2">
+                                    <span class="icon-check text-green-600 font-bold"></span>
+                                    <div>
+                                        <p class="font-semibold text-gray-900 text-sm line-through">React Components</p>
+                                        <p class="text-gray-600 text-xs mt-1">Reusable component design</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Card 5 -->
+                            <div class="bg-white rounded-lg p-3 shadow-sm hover:shadow-md cursor-grab active:cursor-grabbing border-l-4 border-l-green-500 opacity-75">
+                                <div class="flex items-start gap-2">
+                                    <span class="icon-check text-green-600 font-bold"></span>
+                                    <div>
+                                        <p class="font-semibold text-gray-900 text-sm line-through">React Router Setup</p>
+                                        <p class="text-gray-600 text-xs mt-1">Routing and navigation</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</body>
+</html>
