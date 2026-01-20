@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Badge } from '../components/Badge';
 import { Card } from '../components/Card';
 import { Button } from '../components/Button';
+import { CardSkeleton } from '../components/ui/Skeleton';
 
 // ============================================================================
 // UsersPage — List all users from JSONPlaceholder API
@@ -116,13 +117,16 @@ export function UsersPage() {
         {/* Loading State */}
         {loading && !error ? (
           <div>
-            <div className="mb-6">
-              <div className="h-10 bg-gray-200 rounded animate-pulse mb-3"></div>
+            <div className="mb-6 space-y-3">
               <div className="h-10 bg-gray-200 rounded animate-pulse"></div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="h-10 bg-gray-200 rounded animate-pulse"></div>
+                <div className="h-10 bg-gray-200 rounded animate-pulse"></div>
+              </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[...Array(6)].map((_, i) => (
-                <div key={i} className="p-6 bg-gray-200 rounded animate-pulse h-40"></div>
+                <CardSkeleton key={i} />
               ))}
             </div>
           </div>

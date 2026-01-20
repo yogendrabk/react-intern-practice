@@ -26,6 +26,8 @@ export function Avatar({
     font-bold
     text-white
     overflow-hidden
+    ring-2
+    ring-primary-500
     ${className}
   `;
 

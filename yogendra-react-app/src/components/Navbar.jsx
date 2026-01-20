@@ -30,11 +30,14 @@ export function Navbar({
   return (
     <nav 
       className={`
-        bg-white
+        bg-white/70
+        backdrop-blur-md
         shadow-md
         sticky
         top-0
         z-50
+        border-b
+        border-white/20
         ${className}
       `}
       {...rest}
@@ -45,7 +48,7 @@ export function Navbar({
           {/* Logo/Title — also link to home */}
           <Link 
             to="/"
-            className="font-bold text-xl text-gray-800 hover:text-blue-600 transition"
+            className="font-bold text-xl text-gray-800 hover:text-primary-600 transition"
           >
             {title}
           </Link>
@@ -61,8 +64,8 @@ export function Navbar({
                   transition-colors
                   pb-2
                   ${link.active 
-                    ? 'text-blue-600 border-b-2 border-blue-600' 
-                    : 'text-gray-600 hover:text-blue-600'
+                    ? 'text-primary-600 border-b-2 border-primary-600' 
+                    : 'text-gray-600 hover:text-primary-600'
                   }
                 `}
               >
@@ -95,8 +98,8 @@ export function Navbar({
                   transition-colors
                   pb-2
                   ${link.active 
-                    ? 'text-blue-600 border-b-2 border-blue-600' 
-                    : 'text-gray-600 hover:text-blue-600'
+                    ? 'text-primary-600 border-b-2 border-primary-600' 
+                    : 'text-gray-600 hover:text-primary-600'
                   }
                 `}
                 onClick={() => setIsOpen(false)}

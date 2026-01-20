@@ -14,7 +14,9 @@ export function Card({
         rounded-lg
         shadow-md
         hover:shadow-lg
-        transition-shadow
+        hover:translate-y-[-4px]
+        transition-all
+        duration-200
         overflow-hidden
         ${className}
       `}
