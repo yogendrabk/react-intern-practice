@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
+import { SearchModal } from './components/ui/SearchModal';
 import Home from './pages/Home';
 import About from './pages/About';
 import Portfolio from './pages/Portfolio';
@@ -70,6 +71,9 @@ function AppContent({ isLoggedIn, setIsLoggedIn }) {
 
   return (
     <div className="flex flex-col min-h-screen">
+      {/* SearchModal — Global component, accessible with Ctrl+K */}
+      <SearchModal />
+
       {/* Navbar at top with all routes */}
       <Navbar 
         title="React Router & Authentication — Week 6" 

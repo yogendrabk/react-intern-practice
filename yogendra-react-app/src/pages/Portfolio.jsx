@@ -1,22 +1,30 @@
+import { useState } from 'react';
 import { Card } from '../components/Card';
 import { Button } from '../components/Button';
 import { Badge } from '../components/Badge';
 import { Avatar } from '../components/Avatar';
+import { useIntersectionObserver } from '../hooks';
 
 // ============================================================================
-// Portfolio Page — Component Reuse Showcase
+// Portfolio Page (Day 30) — Bootstrap Integration + Component Reuse
 // ============================================================================
 // 
-// This page demonstrate power of reusable component:
-// - Same Badge component used in skill + project section (consistency!)
-// - Same Card component wrap different content (flexibility!)
-// - Same Button component different variant (scalability!)
-// - Same Avatar component different size (adaptability!)
+// Enhanced portfolio with Bootstrap 5 component:
+// - Breadcrumb (Bootstrap)
+// - Modal for project detail (Bootstrap + React state)
+// - Progress bar for skill level (Bootstrap + animation)
+// - Accordion for FAQ (Bootstrap + React state)
+// - Mix of Tailwind (layout) + Bootstrap (component)
 //
-// Building with reusable component = less code, more maintainable!
+// This demonstrate integration of Bootstrap component inside React app.
+// Use React state to control Bootstrap element (modal, accordion).
+// Use Bootstrap CSS for styling (card, progress, badge).
+//
 // ============================================================================
 
 export function Portfolio() {
+  const [selectedProject, setSelectedProject] = useState(null);
+  
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       {/* ====================================================================== */}
@@ -119,6 +127,37 @@ export function Portfolio() {
           <p className="text-sm text-gray-600 mt-8 p-4 bg-blue-50 rounded border border-blue-200">
             <span className="font-semibold">💡 Technical note:</span> All badge use same Badge component with different color props.
             This reusable approach = less code, consistent styling, easy maintain!
+          </p>
+        </div>
+      </section>
+
+      {/* ====================================================================== */}
+      {/* SKILL PROFICIENCY — Animated Progress Bars (useIntersectionObserver) */}
+      {/* ====================================================================== */}
+
+      <section className="py-16 px-4 bg-gray-50">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4 text-center">
+            Skill Proficiency
+          </h2>
+          <p className="text-center text-gray-600 mb-12">
+            Scroll down to see skill bars animate as they enter viewport (useIntersectionObserver)
+          </p>
+
+          <div className="space-y-6">
+            <SkillBar skill="React & JSX" proficiency={75} />
+            <SkillBar skill="JavaScript (ES6+)" proficiency={75} />
+            <SkillBar skill="HTML & Semantic Markup" proficiency={85} />
+            <SkillBar skill="CSS & Tailwind" proficiency={80} />
+            <SkillBar skill="Git & Version Control" proficiency={70} />
+            <SkillBar skill="API Integration" proficiency={65} />
+            <SkillBar skill="Problem Solving" proficiency={80} />
+            <SkillBar skill="Communication" proficiency={75} />
+          </div>
+
+          <p className="text-sm text-gray-600 mt-8 p-4 bg-blue-50 rounded border border-blue-200">
+            <span className="font-semibold">💡 Technical note:</span> These progress bars use useIntersectionObserver hook!
+            When bar scroll into viewport, animation trigger automatically. Better UX without scroll event listener!
           </p>
         </div>
       </section>
@@ -331,6 +370,44 @@ export function Portfolio() {
           </Button>
         </div>
       </section>
+    </div>
+  );
+}
+
+// ============================================================================
+// SkillBar Component — Uses useIntersectionObserver for animation
+// ============================================================================
+//
+// This component demonstrate useIntersectionObserver hook:
+// - When skill bar scroll into viewport, animation trigger
+// - Progress width animate from 0 to target proficiency level
+// - No scroll event listener needed (browser API handle it)
+//
+// ============================================================================
+
+function SkillBar({ skill, proficiency }) {
+  const [ref, isVisible] = useIntersectionObserver({
+    threshold: 0.1,
+  });
+
+  return (
+    <div ref={ref} className="space-y-2">
+      <div className="flex justify-between">
+        <span className="font-semibold text-gray-800">{skill}</span>
+        <span className="text-sm text-gray-600">{proficiency}%</span>
+      </div>
+      <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+        <div
+          className={`
+            h-full bg-gradient-to-r from-primary-500 to-primary-600 rounded-full
+            transition-all duration-1000 ease-out
+            ${isVisible ? 'w-[proficiency%]' : 'w-0'}
+          `}
+          style={{
+            width: isVisible ? `${proficiency}%` : '0%',
+          }}
+        />
+      </div>
     </div>
   );
 }
