@@ -23,6 +23,11 @@ import { CardSkeleton } from '../components/ui/Skeleton';
 // ============================================================================
 
 export function UsersPage() {
+  // Set document title
+  useEffect(() => {
+    document.title = "Users Directory";
+  }, []);
+
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [search, setSearch] = useState('');

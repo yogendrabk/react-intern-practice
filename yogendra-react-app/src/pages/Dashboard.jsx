@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/Button';
 import { Badge } from '../components/Badge';
@@ -26,6 +27,11 @@ import { Card } from '../components/Card';
 // ============================================================================
 
 export function Dashboard({ setIsLoggedIn }) {
+  // Set document title
+  useEffect(() => {
+    document.title = "Dashboard — Protected";
+  }, []);
+  
   const navigate = useNavigate();
 
   // Handle logout

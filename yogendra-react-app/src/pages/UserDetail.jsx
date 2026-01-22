@@ -29,6 +29,11 @@ import { Button } from '../components/Button';
 // ============================================================================
 
 export function UserDetail() {
+  // Set document title
+  useEffect(() => {
+    document.title = "User Details";
+  }, []);
+
   // Get user ID from URL using useParams
   // If URL = /users/5, then id = "5"
   const { id } = useParams();

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/Button';
 import { Card } from '../components/Card';
@@ -28,6 +28,10 @@ import { Card } from '../components/Card';
 // ============================================================================
 
 export function LoginPage({ setIsLoggedIn }) {
+  // Set document title
+  useEffect(() => {
+    document.title = "Login — Auth";
+  }, []);
   const navigate = useNavigate();
 
   // Form state

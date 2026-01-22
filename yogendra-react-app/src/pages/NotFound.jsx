@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/Button';
 
@@ -16,6 +17,11 @@ import { Button } from '../components/Button';
 // ============================================================================
 
 export function NotFound() {
+  // Set document title
+  useEffect(() => {
+    document.title = "404 — Page Not Found";
+  }, []);
+  
   const navigate = useNavigate();
 
   return (

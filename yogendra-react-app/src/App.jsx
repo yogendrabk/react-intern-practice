@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { SearchModal } from './components/ui/SearchModal';
+import { BackToTop } from './components/ui/BackToTop';
+import { ErrorBoundary } from './components/ui/ErrorBoundary';
 import Home from './pages/Home';
 import About from './pages/About';
 import Portfolio from './pages/Portfolio';
@@ -11,6 +13,7 @@ import UsersPage from './pages/UsersPage';
 import UserDetail from './pages/UserDetail';
 import LoginPage from './pages/LoginPage';
 import Dashboard from './pages/Dashboard';
+import Contact from './pages/Contact';
 import NotFound from './pages/NotFound';
 import ProtectedRoute from './components/layout/ProtectedRoute';
 import './App.css';
@@ -59,6 +62,7 @@ function AppContent({ isLoggedIn, setIsLoggedIn }) {
     { label: 'Portfolio', href: '/portfolio', active: location.pathname === '/portfolio' },
     { label: 'Users', href: '/users', active: location.pathname === '/users' },
     { label: 'Todo', href: '/todo', active: location.pathname === '/todo' },
+    { label: 'Contact', href: '/contact', active: location.pathname === '/contact' },
     isLoggedIn
       ? { label: 'Dashboard', href: '/dashboard', active: location.pathname === '/dashboard' }
       : { label: 'Login', href: '/login', active: location.pathname === '/login' },
@@ -74,15 +78,20 @@ function AppContent({ isLoggedIn, setIsLoggedIn }) {
       {/* SearchModal — Global component, accessible with Ctrl+K */}
       <SearchModal />
 
-      {/* Navbar at top with all routes */}
-      <Navbar 
-        title="React Router & Authentication — Week 6" 
-        links={navLinks}
-      />
+      {/* BackToTop — Floating button to scroll back to top */}
+      <BackToTop />
 
-      {/* Main content grow */}
-      <main className="flex-grow">
-        <Routes>
+      {/* ErrorBoundary — Catch JS errors and show fallback UI */}
+      <ErrorBoundary>
+        {/* Navbar at top with all routes */}
+        <Navbar 
+          title="React Router & Authentication — Week 6" 
+          links={navLinks}
+        />
+
+        {/* Main content grow */}
+        <main className="flex-grow">
+          <Routes>
           {/* ============================================================ */}
           {/* PUBLIC ROUTES */}
           {/* ============================================================ */}
@@ -92,6 +101,7 @@ function AppContent({ isLoggedIn, setIsLoggedIn }) {
           <Route path="/todo" element={<TodoApp />} />
           <Route path="/users" element={<UsersPage />} />
           <Route path="/users/:id" element={<UserDetail />} />
+          <Route path="/contact" element={<Contact />} />
 
           {/* ============================================================ */}
           {/* AUTH ROUTES */}
@@ -115,13 +125,14 @@ function AppContent({ isLoggedIn, setIsLoggedIn }) {
           {/* ============================================================ */}
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </main>
+        </main>
 
-      {/* Footer at bottom */}
-      <Footer 
-        companyName="Tech Yatra Private Limited — Week 6: Router Architecture"
-        links={footerLinks}
-      />
+        {/* Footer at bottom */}
+        <Footer 
+          companyName="Tech Yatra Private Limited — Week 6: Router Architecture"
+          links={footerLinks}
+        />
+      </ErrorBoundary>
     </div>
   );
 }

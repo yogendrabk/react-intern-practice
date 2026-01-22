@@ -108,6 +108,15 @@ export function TodoApp() {
   }, [todos]); // Dependency: [todos] = run whenever todos array change
 
   // ========================================================================
+  // useEffect 3: Set document title
+  // ========================================================================
+  
+  useEffect(() => {
+    const activeTodos = todos.filter(todo => !todo.completed).length;
+    document.title = `Todo App — ${activeTodos} task${activeTodos !== 1 ? 's' : ''} remaining`;
+  }, [todos]);
+
+  // ========================================================================
   // Handler Functions
   // ========================================================================
 

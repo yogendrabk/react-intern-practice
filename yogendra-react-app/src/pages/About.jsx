@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Badge } from '../components/Badge';
 import { Card } from '../components/Card';
 
@@ -16,6 +17,10 @@ import { Card } from '../components/Card';
 // ============================================================================
 
 export function About() {
+  // Set document title
+  useEffect(() => {
+    document.title = "About — Learn My Journey";
+  }, []);
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-16 px-4">
       <div className="max-w-5xl mx-auto">
