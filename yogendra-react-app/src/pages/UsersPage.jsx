@@ -4,6 +4,7 @@ import { Badge } from '../components/Badge';
 import { Card } from '../components/Card';
 import { Button } from '../components/Button';
 import { CardSkeleton } from '../components/ui/Skeleton';
+import { DataTable } from '../components/features/DataTable';
 
 // ============================================================================
 // UsersPage — List all users from JSONPlaceholder API
@@ -35,6 +36,7 @@ export function UsersPage() {
   const [filterByCompany, setFilterByCompany] = useState('all');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [viewType, setViewType] = useState('card'); // 'card' or 'table'
 
   // Fetch users on mount
   useEffect(() => {
@@ -173,12 +175,37 @@ export function UsersPage() {
               </div>
             </Card>
 
-            {/* Users Grid */}
+            {/* View Toggle Button */}
+            <div className="mb-6 flex gap-2">
+              <button
+                onClick={() => setViewType('card')}
+                className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                  viewType === 'card'
+                    ? 'bg-blue-600 text-white'
+                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                }`}
+              >
+                📇 Card View
+              </button>
+              <button
+                onClick={() => setViewType('table')}
+                className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                  viewType === 'table'
+                    ? 'bg-blue-600 text-white'
+                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                }`}
+              >
+                📊 Table View
+              </button>
+            </div>
+
+            {/* Users Grid or Table */}
             {filteredUsers.length === 0 ? (
               <div className="text-center py-12 bg-white rounded-lg shadow-md">
                 <p className="text-lg text-gray-600">No users found</p>
               </div>
-            ) : (
+            ) : viewType === 'card' ? (
+              // Card View
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredUsers.map((user) => (
                   <Link key={user.id} to={`/users/${user.id}`}>
@@ -211,7 +238,35 @@ export function UsersPage() {
                   </Link>
                 ))}
               </div>
+            ) : (
+              // Table View - using DataTable component
+              <DataTable
+                columns={[
+                  { key: 'id', label: 'ID', sortable: false },
+                  { key: 'name', label: 'Name', sortable: true },
+                  { key: 'email', label: 'Email', sortable: true },
+                  { key: 'phone', label: 'Phone', sortable: false },
+                  { key: 'company', label: 'Company', sortable: true },
+                ]}
+                data={filteredUsers.map((user) => ({
+                  id: user.id,
+                  name: user.name,
+                  email: user.email,
+                  phone: user.phone,
+                  company: user.company.name,
+                  ...user, // Include full user object for row click
+                }))}
+                pageSize={10}
+                loading={loading}
+                onRowClick={(row) => {
+                  // Navigate to user detail page - find original user by id
+                  const userId = row.id;
+                  window.location.href = `/users/${userId}`;
+                }}
+                emptyMessage="No users found"
+              />
             )}
+            
 
             <p className="text-center text-gray-600 mt-8">
               Showing {filteredUsers.length} of {users.length} user
