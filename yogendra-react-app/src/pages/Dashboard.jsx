@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/Button';
 import { Badge } from '../components/Badge';
 import { Card } from '../components/Card';
+import { Charts } from '../components/features/Charts';
 
 // ============================================================================
 // Dashboard Component — Protected Page
@@ -107,6 +108,11 @@ export function Dashboard({ setIsLoggedIn }) {
               color="yellow"
             />
           </div>
+        </section>
+
+        {/* Charts Section — Day 37 Addition */}
+        <section className="mb-12">
+          <Charts />
         </section>
 
         {/* Main Content Area */}
