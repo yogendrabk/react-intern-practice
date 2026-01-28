@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 // ============================================================================
-// Navbar Component (Updated for React Router v6)
+// Navbar Component (Updated for React Router v6 + Bookmarks Badge)
 // ============================================================================
 //
 // This component now use Link from react-router-dom instead of <a> tag.
@@ -16,6 +16,8 @@ import PropTypes from 'prop-types';
 // - Responsive: desktop menu + mobile hamburger menu
 // - Active link highlighting (check current pathname)
 // - Dynamic links from prop (flexible navigation)
+// - Bookmarks badge showing count from localStorage
+// - Real-time update of bookmark count
 //
 // ============================================================================
 
@@ -26,6 +28,22 @@ export function Navbar({
   ...rest
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [bookmarkCount, setBookmarkCount] = useState(0);
+
+  // Load bookmarks count from localStorage
+  useEffect(() => {
+    const bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]');
+    setBookmarkCount(bookmarks.length);
+
+    // Listen for storage changes (bookmarks updated in another component)
+    const handleStorageChange = () => {
+      const updated = JSON.parse(localStorage.getItem('bookmarks') || '[]');
+      setBookmarkCount(updated.length);
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
 
   return (
     <nav 
@@ -54,7 +72,7 @@ export function Navbar({
           </Link>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex gap-8">
+          <div className="hidden md:flex gap-8 items-center">
             {links.map((link, index) => (
               <Link
                 key={index}
@@ -72,6 +90,20 @@ export function Navbar({
                 {link.label}
               </Link>
             ))}
+
+            {/* Bookmarks Badge */}
+            <Link
+              to="/posts"
+              className="relative flex items-center"
+              title="View bookmarks"
+            >
+              <span className="text-xl">📚</span>
+              {bookmarkCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                  {bookmarkCount}
+                </span>
+              )}
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -107,12 +139,44 @@ export function Navbar({
                 {link.label}
               </Link>
             ))}
+
+            {/* Mobile Bookmarks Badge */}
+            <Link
+              to="/posts"
+              className="font-semibold text-gray-600 hover:text-primary-600 pb-2 flex items-center gap-2"
+              onClick={() => setIsOpen(false)}
+            >
+              <span>📚 Bookmarks</span>
+              {bookmarkCount > 0 && (
+                <span className="bg-red-500 text-white text-xs font-bold rounded-full px-2 py-0.5">
+                  {bookmarkCount}
+                </span>
+              )}
+            </Link>
           </div>
         )}
       </div>
     </nav>
   );
 }
+
+Navbar.propTypes = {
+  title: PropTypes.string,
+  links: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      href: PropTypes.string,
+      active: PropTypes.bool,
+    })
+  ),
+  className: PropTypes.string,
+};
+
+// Navbar component showcase responsive design
+// Mobile hamburger menu toggle with useState
+// Desktop menu display flex with gap
+// Active link detection with conditional styling
+// Bookmarks badge: reads from localStorage, updates in real-time
 
 Navbar.propTypes = {
   title: PropTypes.string,

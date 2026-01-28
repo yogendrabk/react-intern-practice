@@ -15,6 +15,8 @@ import LoginPage from './pages/LoginPage';
 import Dashboard from './pages/Dashboard';
 import Contact from './pages/Contact';
 import NotFound from './pages/NotFound';
+import PostsPage from './pages/PostsPage';
+import PostDetail from './pages/PostDetail';
 import ProtectedRoute from './components/layout/ProtectedRoute';
 import './App.css';
 
@@ -61,6 +63,7 @@ function AppContent({ isLoggedIn, setIsLoggedIn }) {
     { label: 'About', href: '/about', active: location.pathname === '/about' },
     { label: 'Portfolio', href: '/portfolio', active: location.pathname === '/portfolio' },
     { label: 'Users', href: '/users', active: location.pathname === '/users' },
+    { label: 'Posts', href: '/posts', active: location.pathname === '/posts' || location.pathname.startsWith('/posts/') },
     { label: 'Todo', href: '/todo', active: location.pathname === '/todo' },
     { label: 'Contact', href: '/contact', active: location.pathname === '/contact' },
     isLoggedIn
@@ -101,6 +104,8 @@ function AppContent({ isLoggedIn, setIsLoggedIn }) {
           <Route path="/todo" element={<TodoApp />} />
           <Route path="/users" element={<UsersPage />} />
           <Route path="/users/:id" element={<UserDetail />} />
+          <Route path="/posts" element={<PostsPage />} />
+          <Route path="/posts/:id" element={<PostDetail />} />
           <Route path="/contact" element={<Contact />} />
 
           {/* ============================================================ */}
