@@ -295,25 +295,182 @@ export function Portfolio() {
               week={5}
               title="React Hooks Deep Dive"
               description="useState, useEffect, API integration, real project"
-              status="in-progress"
+              status="completed"
             />
 
             {/* Week 6-7 */}
             <TimelineItem
               week="6-7"
-              title="Advanced React"
-              description="Context API, custom hooks, state management"
-              status="pending"
+              title="Advanced React & Router"
+              description="React Router v6, authentication, protected routes, custom hooks"
+              status="completed"
             />
 
-            {/* Week 8-11 */}
+            {/* Week 8 */}
             <TimelineItem
-              week="8-11"
-              title="Full-Stack Project & Portfolio"
-              description="End-to-end application, deployment, final presentation"
-              status="pending"
+              week={8}
+              title="Advanced Features & Polish"
+              description="useReducer tables, CSS charts, infinite scroll, defense prep, documentation"
+              status="completed"
             />
           </div>
+        </div>
+      </section>
+
+      {/* ====================================================================== */}
+      {/* WEEK 8 INTERNSHIP COMPLETION & CERTIFICATE */}
+      {/* ====================================================================== */}
+
+      <section className="py-16 px-4 bg-gradient-to-b from-blue-50 to-purple-50">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              ✅ Internship Completion: Week 8
+            </h2>
+            <p className="text-lg text-gray-700">
+              Advanced React patterns, state management, and production-ready components
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            {/* Day 36 - DataTable */}
+            <Card 
+              header={<h3 className="text-lg font-semibold text-gray-800">📊 Day 36: DataTable Component</h3>}
+              className="border-2 border-blue-200 bg-white"
+            >
+              <div className="space-y-2 text-sm text-gray-700">
+                <p><strong>Feature:</strong> Reusable, sortable, filterable data table</p>
+                <p><strong>Tech:</strong> useReducer, useMemo, pagination</p>
+                <p><strong>Lines:</strong> 350+ lines of production-ready code</p>
+                <p className="text-xs text-gray-600 mt-3 p-2 bg-blue-50 rounded">
+                  💡 Why useReducer? Multiple related state values (sort, search, pagination) 
+                  managed as cohesive unit instead of scattered useState hooks.
+                </p>
+              </div>
+            </Card>
+
+            {/* Day 37 - Charts */}
+            <Card 
+              header={<h3 className="text-lg font-semibold text-gray-800">📈 Day 37: CSS-Only Charts</h3>}
+              className="border-2 border-purple-200 bg-white"
+            >
+              <div className="space-y-2 text-sm text-gray-700">
+                <p><strong>Feature:</strong> 3 charts without libraries (bars, donut, heatmap)</p>
+                <p><strong>Tech:</strong> conic-gradient, CSS Grid, Tooltip component</p>
+                <p><strong>Lines:</strong> 300+ lines with 3 different visualizations</p>
+                <p className="text-xs text-gray-600 mt-3 p-2 bg-purple-50 rounded">
+                  💡 CSS-first approach: Smaller bundle, fully customizable, semantic HTML. 
+                  Perfect for simple data viz!
+                </p>
+              </div>
+            </Card>
+
+            {/* Day 38 - Infinite Scroll */}
+            <Card 
+              header={<h3 className="text-lg font-semibold text-gray-800">♾️ Day 38: Infinite Scroll Posts</h3>}
+              className="border-2 border-green-200 bg-white"
+            >
+              <div className="space-y-2 text-sm text-gray-700">
+                <p><strong>Features:</strong> Infinite scroll posts, bookmarks (localStorage), PostDetail</p>
+                <p><strong>Tech:</strong> IntersectionObserver, localStorage, Clipboard API</p>
+                <p><strong>Lines:</strong> 180+ for PostsPage + 120+ for PostDetail</p>
+                <p className="text-xs text-gray-600 mt-3 p-2 bg-green-50 rounded">
+                  💡 IntersectionObserver: Efficient pattern vs scroll listeners. 
+                  Bookmarks persist via localStorage. Share button copies URL.
+                </p>
+              </div>
+            </Card>
+
+            {/* Day 39 - Defense Prep */}
+            <Card 
+              header={<h3 className="text-lg font-semibold text-gray-800">🎓 Day 39: Defense Prep</h3>}
+              className="border-2 border-yellow-200 bg-white"
+            >
+              <div className="space-y-2 text-sm text-gray-700">
+                <p><strong>Created:</strong> Comprehensive defense documentation</p>
+                <p><strong>Content:</strong> 15 Q&A, concept table, patterns, component map</p>
+                <p><strong>Lines:</strong> 650+ lines of reference material</p>
+                <p className="text-xs text-gray-600 mt-3 p-2 bg-yellow-50 rounded">
+                  💡 Prepared for internship defense interview with architecture 
+                  decisions, design patterns, and technical deep-dives.
+                </p>
+              </div>
+            </Card>
+
+            {/* Day 40 - Polish */}
+            <Card 
+              header={<h3 className="text-lg font-semibold text-gray-800">✨ Day 40: Final Polish</h3>}
+              className="border-2 border-red-200 bg-white"
+            >
+              <div className="space-y-2 text-sm text-gray-700">
+                <p><strong>Created:</strong> Utility functions, hooks, updated README</p>
+                <p><strong>Utilities:</strong> formatDate, formatNumber, truncateText, etc</p>
+                <p><strong>Documentation:</strong> Complete project README, week summary</p>
+                <p className="text-xs text-gray-600 mt-3 p-2 bg-red-50 rounded">
+                  💡 Centralized formatting functions enforce consistency. 
+                  Complete documentation for future reference & portfolio showcase.
+                </p>
+              </div>
+            </Card>
+          </div>
+
+          {/* Key Achievements */}
+          <Card 
+            header={<h2 className="text-2xl font-bold text-gray-900">🏆 Key Achievements</h2>}
+            className="bg-white shadow-lg"
+          >
+            <div className="space-y-4 text-gray-700">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                <div className="text-center p-4 bg-blue-50 rounded">
+                  <p className="text-3xl font-bold text-blue-600">40</p>
+                  <p className="text-sm text-gray-600">Git Commits</p>
+                </div>
+                <div className="text-center p-4 bg-purple-50 rounded">
+                  <p className="text-3xl font-bold text-purple-600">2000+</p>
+                  <p className="text-sm text-gray-600">Lines of Code</p>
+                </div>
+                <div className="text-center p-4 bg-green-50 rounded">
+                  <p className="text-3xl font-bold text-green-600">15+</p>
+                  <p className="text-sm text-gray-600">Components Built</p>
+                </div>
+                <div className="text-center p-4 bg-yellow-50 rounded">
+                  <p className="text-3xl font-bold text-yellow-600">8</p>
+                  <p className="text-sm text-gray-600">Weeks Completed</p>
+                </div>
+              </div>
+
+              <div className="border-t border-gray-200 pt-6">
+                <h3 className="font-semibold text-lg mb-3">Technical Competencies:</h3>
+                <ul className="space-y-2 text-sm">
+                  <li>✅ React 18 with functional components & hooks deep understanding</li>
+                  <li>✅ Custom hooks for reusable logic (useLocalStorage, useIntersectionObserver, useDocumentTitle)</li>
+                  <li>✅ State management with useState, useReducer, Context API patterns</li>
+                  <li>✅ API integration with error handling, loading states, caching patterns</li>
+                  <li>✅ Responsive design with Tailwind CSS & Bootstrap integration</li>
+                  <li>✅ Production-ready components (DataTable reusable, Charts visualized data, Tooltip interactive UX)</li>
+                  <li>✅ Browser APIs (IntersectionObserver for infinite scroll, Clipboard API for sharing, localStorage for persistence)</li>
+                  <li>✅ Git workflow with meaningful commits, testing practices, code organization</li>
+                </ul>
+              </div>
+
+              <div className="border-t border-gray-200 pt-6 mt-6">
+                <h3 className="font-semibold text-lg mb-3">Internship Certificate Details:</h3>
+                <p className="text-sm">
+                  <strong>Duration:</strong> December 9, 2025 - February 6, 2026 (8 weeks)
+                </p>
+                <p className="text-sm mt-2">
+                  <strong>Company:</strong> Tech Yatra Private Limited, Kathmandu, Nepal
+                </p>
+                <p className="text-sm mt-2">
+                  <strong>Course:</strong> Advanced React Development with Modern Web Technologies
+                </p>
+                <p className="text-sm mt-2">
+                  <strong>Outcome:</strong> Built 5+ projects, mastered React hooks, custom components, 
+                  state management patterns, API integration, and professional development practices.
+                </p>
+              </div>
+            </div>
+          </Card>
         </div>
       </section>
 
