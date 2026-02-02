@@ -4,6 +4,7 @@ import { Button } from '../components/Button';
 import { Badge } from '../components/Badge';
 import { Card } from '../components/Card';
 import { Charts } from '../components/features/Charts';
+import { ActivityFeed } from '../components/features/ActivityFeed';
 
 // ============================================================================
 // Dashboard Component — Protected Page
@@ -113,6 +114,11 @@ export function Dashboard({ setIsLoggedIn }) {
         {/* Charts Section — Day 37 Addition */}
         <section className="mb-12">
           <Charts />
+        </section>
+
+        {/* Activity Feed Section — Day 41 Addition */}
+        <section className="mb-12">
+          <ActivityFeed />
         </section>
 
         {/* Main Content Area */}
