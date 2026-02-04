@@ -18,6 +18,7 @@ import NotFound from './pages/NotFound';
 import PostsPage from './pages/PostsPage';
 import PostDetail from './pages/PostDetail';
 import { MultiStepForm } from './components/features/MultiStepForm';
+import { ReactPatternsDemo } from './practice/ReactPatternsDemo';
 import ProtectedRoute from './components/layout/ProtectedRoute';
 import './App.css';
 
@@ -67,6 +68,7 @@ function AppContent({ isLoggedIn, setIsLoggedIn }) {
     { label: 'Posts', href: '/posts', active: location.pathname === '/posts' || location.pathname.startsWith('/posts/') },
     { label: 'Todo', href: '/todo', active: location.pathname === '/todo' },
     { label: 'Apply', href: '/apply', active: location.pathname === '/apply' },
+    { label: 'Patterns', href: '/patterns', active: location.pathname === '/patterns' },
     { label: 'Contact', href: '/contact', active: location.pathname === '/contact' },
     isLoggedIn
       ? { label: 'Dashboard', href: '/dashboard', active: location.pathname === '/dashboard' }
@@ -109,6 +111,7 @@ function AppContent({ isLoggedIn, setIsLoggedIn }) {
           <Route path="/posts" element={<PostsPage />} />
           <Route path="/posts/:id" element={<PostDetail />} />
           <Route path="/apply" element={<MultiStepForm />} />
+          <Route path="/patterns" element={<ReactPatternsDemo />} />
           <Route path="/contact" element={<Contact />} />
 
           {/* ============================================================ */}
