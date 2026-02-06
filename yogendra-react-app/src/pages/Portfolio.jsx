@@ -313,12 +313,103 @@ export function Portfolio() {
               description="useReducer tables, CSS charts, infinite scroll, defense prep, documentation"
               status="completed"
             />
+
+            {/* Week 9 */}
+            <TimelineItem
+              week={9}
+              title="Advanced Patterns & Defense Finalization"
+              description="Real-time activity feeds, multi-step forms, React patterns (compound, render props, HOC), defense documentation"
+              status="completed"
+            />
           </div>
         </div>
       </section>
 
       {/* ====================================================================== */}
-      {/* WEEK 8 INTERNSHIP COMPLETION & CERTIFICATE */}
+      {/* WEEK 9 ADVANCED PATTERNS & FINALIZATION */}
+      {/* ====================================================================== */}
+
+      <section className="py-16 px-4 bg-gradient-to-b from-purple-50 to-pink-50">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              ✨ Advanced Week: Week 9 Completion
+            </h2>
+            <p className="text-lg text-gray-700">
+              Real-time data patterns, advanced form handling, and React design patterns mastery
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            {/* Day 41 - ActivityFeed */}
+            <Card 
+              header={<h3 className="text-lg font-semibold text-gray-800">⚡ Day 41: Real-Time Activity Feed</h3>}
+              className="border-2 border-blue-200 bg-white"
+            >
+              <div className="space-y-2 text-sm text-gray-700">
+                <p><strong>Feature:</strong> Simulated real-time updates with useReducer polling</p>
+                <p><strong>Tech:</strong> useReducer, setInterval, relative time formatting</p>
+                <p><strong>Lines:</strong> 260+ lines of ActivityFeed + 110+ lines of timeUtils</p>
+                <p className="text-xs text-gray-600 mt-3 p-2 bg-blue-50 rounded">
+                  💡 useReducer for multiple related state (activities array + isPaused). 
+                  Polling every 8 seconds simulates real-time (production: WebSocket).
+                </p>
+              </div>
+            </Card>
+
+            {/* Day 42 - MultiStepForm */}
+            <Card 
+              header={<h3 className="text-lg font-semibold text-gray-800">📋 Day 42: Multi-Step Form Wizard</h3>}
+              className="border-2 border-green-200 bg-white"
+            >
+              <div className="space-y-2 text-sm text-gray-700">
+                <p><strong>Features:</strong> 3-step form with validation, progress bar, localStorage</p>
+                <p><strong>Tech:</strong> useState, localStorage, form validation pattern</p>
+                <p><strong>Lines:</strong> 350+ lines with comprehensive step management</p>
+                <p className="text-xs text-gray-600 mt-3 p-2 bg-green-50 rounded">
+                  💡 Per-step validation + centralized formData + localStorage persistence. 
+                  Data survives refresh, enables progressive form completion.
+                </p>
+              </div>
+            </Card>
+
+            {/* Day 43 - React Patterns */}
+            <Card 
+              header={<h3 className="text-lg font-semibold text-gray-800">🎨 Day 43: React Design Patterns</h3>}
+              className="border-2 border-purple-200 bg-white"
+            >
+              <div className="space-y-2 text-sm text-gray-700">
+                <p><strong>Patterns:</strong> Compound Components, Render Props, Higher-Order Components</p>
+                <p><strong>Tech:</strong> Context API, composition, flexible component design</p>
+                <p><strong>Lines:</strong> 300+ of interactive pattern examples</p>
+                <p className="text-xs text-gray-600 mt-3 p-2 bg-purple-50 rounded">
+                  💡 Compound Components (implicit state sharing), Render Props (maximum flexibility), 
+                  HOC (cross-cutting concerns). Modern approach: custom hooks instead.
+                </p>
+              </div>
+            </Card>
+
+            {/* Day 44 - Defense Prep Comprehensive */}
+            <Card 
+              header={<h3 className="text-lg font-semibold text-gray-800">🎓 Day 44: Comprehensive Defense Prep</h3>}
+              className="border-2 border-yellow-200 bg-white"
+            >
+              <div className="space-y-2 text-sm text-gray-700">
+                <p><strong>Created:</strong> Complete defense documentation with Q&A</p>
+                <p><strong>Content:</strong> Opening statement, 5 technical deep dives, 10+ Q&A</p>
+                <p><strong>Lines:</strong> 825+ lines of reference material</p>
+                <p className="text-xs text-gray-600 mt-3 p-2 bg-yellow-50 rounded">
+                  💡 Defense-ready with technical explanations, architecture decisions, 
+                  and honest improvement suggestions.
+                </p>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* ====================================================================== */}
+      {/* UPDATED INTERNSHIP COMPLETION & CERTIFICATE (Week 8 focus) */}
       {/* ====================================================================== */}
 
       <section className="py-16 px-4 bg-gradient-to-b from-blue-50 to-purple-50">
@@ -422,19 +513,19 @@ export function Portfolio() {
             <div className="space-y-4 text-gray-700">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                 <div className="text-center p-4 bg-blue-50 rounded">
-                  <p className="text-3xl font-bold text-blue-600">40</p>
+                  <p className="text-3xl font-bold text-blue-600">45</p>
                   <p className="text-sm text-gray-600">Git Commits</p>
                 </div>
                 <div className="text-center p-4 bg-purple-50 rounded">
-                  <p className="text-3xl font-bold text-purple-600">2000+</p>
+                  <p className="text-3xl font-bold text-purple-600">2500+</p>
                   <p className="text-sm text-gray-600">Lines of Code</p>
                 </div>
                 <div className="text-center p-4 bg-green-50 rounded">
-                  <p className="text-3xl font-bold text-green-600">15+</p>
+                  <p className="text-3xl font-bold text-green-600">20+</p>
                   <p className="text-sm text-gray-600">Components Built</p>
                 </div>
                 <div className="text-center p-4 bg-yellow-50 rounded">
-                  <p className="text-3xl font-bold text-yellow-600">8</p>
+                  <p className="text-3xl font-bold text-yellow-600">9</p>
                   <p className="text-sm text-gray-600">Weeks Completed</p>
                 </div>
               </div>
@@ -456,7 +547,7 @@ export function Portfolio() {
               <div className="border-t border-gray-200 pt-6 mt-6">
                 <h3 className="font-semibold text-lg mb-3">Internship Certificate Details:</h3>
                 <p className="text-sm">
-                  <strong>Duration:</strong> December 9, 2025 - February 6, 2026 (8 weeks)
+                  <strong>Duration:</strong> December 9, 2025 - February 6, 2026 (9 weeks)
                 </p>
                 <p className="text-sm mt-2">
                   <strong>Company:</strong> Tech Yatra Private Limited, Kathmandu, Nepal
@@ -465,8 +556,9 @@ export function Portfolio() {
                   <strong>Course:</strong> Advanced React Development with Modern Web Technologies
                 </p>
                 <p className="text-sm mt-2">
-                  <strong>Outcome:</strong> Built 5+ projects, mastered React hooks, custom components, 
-                  state management patterns, API integration, and professional development practices.
+                  <strong>Outcome:</strong> Built 8+ projects with 45 commits, mastered React hooks, 
+                  custom components, state management patterns (useState/useReducer/Context), 
+                  API integration, design patterns, and professional development practices.
                 </p>
               </div>
             </div>

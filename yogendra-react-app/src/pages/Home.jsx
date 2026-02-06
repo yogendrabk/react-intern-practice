@@ -5,11 +5,58 @@ import { Badge } from '../components/Badge';
 import { Avatar } from '../components/Avatar';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 
+// ============================================================================
+// Typing Effect Hook - Cycles through words with typewriter animation
+// ============================================================================
+function useTypingEffect(words, speed = 100, deleteSpeed = 50, pauseDuration = 1500) {
+  const [displayText, setDisplayText] = useState('');
+  const [wordIndex, setWordIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const currentWord = words[wordIndex];
+    let timeoutId;
+
+    if (!isDeleting) {
+      // Typing forward
+      if (displayText.length < currentWord.length) {
+        timeoutId = setTimeout(() => {
+          setDisplayText(currentWord.substring(0, displayText.length + 1));
+        }, speed);
+      } else {
+        // Finished typing, pause then start deleting
+        timeoutId = setTimeout(() => {
+          setIsDeleting(true);
+        }, pauseDuration);
+      }
+    } else {
+      // Deleting backward
+      if (displayText.length > 0) {
+        timeoutId = setTimeout(() => {
+          setDisplayText(displayText.substring(0, displayText.length - 1));
+        }, deleteSpeed);
+      } else {
+        // Finished deleting, move to next word
+        setIsDeleting(false);
+        setWordIndex((prev) => (prev + 1) % words.length);
+      }
+    }
+
+    return () => clearTimeout(timeoutId);
+  }, [displayText, isDeleting, wordIndex, words, speed, deleteSpeed, pauseDuration]);
+
+  return displayText;
+}
+
 export function Home() {
   // Set document title
   useEffect(() => {
     document.title = "Home — React App";
   }, []);
+
+  // Typing effect words
+  const typingWords = ['React Developer', 'Frontend Intern', 'UI Builder'];
+  const typedText = useTypingEffect(typingWords);
   // Sample links for navbar
   const navLinks = [
     { label: 'Home', href: '#', active: true },
@@ -34,15 +81,23 @@ export function Home() {
         {/* Hero Section */}
         <section className="mb-12">
           <Card 
-            header={<h1 className="text-3xl font-bold text-gray-800">Welcome to React World!</h1>}
             className="bg-gradient-to-r from-purple-50 to-blue-50"
           >
-            <p className="text-gray-600 mb-6">
-              This Week 4 of React training. We learning components, props, state, and building real application.
-            </p>
-            <div className="flex gap-4">
-              <Button variant="primary">Start Learning</Button>
-              <Button variant="ghost">View Docs</Button>
+            <div className="text-center mb-8">
+              {/* Typing Effect Title */}
+              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-3 min-h-16">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+                  {typedText}
+                </span>
+                <span className="ml-1 inline-block w-1 h-12 bg-blue-600 animate-pulse"></span>
+              </h1>
+              <p className="text-lg text-gray-600 mb-6">
+                Welcome to my React portfolio — 9 weeks of progressive learning, building real applications, and mastering modern web development.
+              </p>
+            </div>
+            <div className="flex gap-4 justify-center flex-wrap">
+              <Button variant="primary">Explore Projects</Button>
+              <Button variant="ghost">View Defense Prep</Button>
             </div>
           </Card>
         </section>
@@ -380,15 +435,15 @@ function StatsSection() {
   
   const [stats, setStats] = useState({
     components: 0,
-    users: 0,
-    projects: 0,
+    weeksCompleted: 0,
+    featuresBuilt: 0,
   });
 
-  // Animation target values
+  // Animation target values - Updated for Week 9 completion
   const targetStats = {
-    components: 25,
-    users: 5000,
-    projects: 8,
+    components: 35,        // Total component built across 9 weeks
+    weeksCompleted: 9,     // 9 weeks of internship
+    featuresBuilt: 45,     // 45 commits = 45+ features
   };
 
   // Animate counters when section becomes visible
@@ -398,8 +453,8 @@ function StatsSection() {
     // Use object to track animation progress
     const animationState = {
       components: 0,
-      users: 0,
-      projects: 0,
+      weeksCompleted: 0,
+      featuresBuilt: 0,
     };
 
     // Duration of animation in milliseconds
@@ -414,8 +469,8 @@ function StatsSection() {
       // Calculate current value for each stat using linear interpolation
       setStats({
         components: Math.floor(targetStats.components * progress),
-        users: Math.floor(targetStats.users * progress),
-        projects: Math.floor(targetStats.projects * progress),
+        weeksCompleted: Math.floor(targetStats.weeksCompleted * progress),
+        featuresBuilt: Math.floor(targetStats.featuresBuilt * progress),
       });
 
       // Continue animation if not finished
@@ -430,34 +485,34 @@ function StatsSection() {
 
   return (
     <section ref={ref} className="mb-12 py-12 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-8">
-      <h2 className="text-2xl font-bold text-gray-800 mb-8 text-center">By The Numbers</h2>
+      <h2 className="text-2xl font-bold text-gray-800 mb-8 text-center">9-Week Internship Journey</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         
-        {/* Stat 1 - Components */}
+        {/* Stat 1 - Components Built */}
         <div className="text-center">
           <div className="text-4xl font-bold text-blue-600 mb-2">
             {stats.components}+
           </div>
-          <p className="text-gray-600 font-medium">Reusable Components Built</p>
-          <p className="text-sm text-gray-500 mt-1">Used across all projects</p>
+          <p className="text-gray-600 font-medium">Components Built</p>
+          <p className="text-sm text-gray-500 mt-1">Reusable UI components across all weeks</p>
         </div>
 
-        {/* Stat 2 - Users */}
+        {/* Stat 2 - Weeks Completed */}
         <div className="text-center">
           <div className="text-4xl font-bold text-green-600 mb-2">
-            {stats.users.toLocaleString()}+
+            {stats.weeksCompleted}
           </div>
-          <p className="text-gray-600 font-medium">Active Users</p>
-          <p className="text-sm text-gray-500 mt-1">Using our applications</p>
+          <p className="text-gray-600 font-medium">Weeks Completed</p>
+          <p className="text-sm text-gray-500 mt-1">Intensive React learning journey</p>
         </div>
 
-        {/* Stat 3 - Projects */}
+        {/* Stat 3 - Features Built */}
         <div className="text-center">
           <div className="text-4xl font-bold text-purple-600 mb-2">
-            {stats.projects}+
+            {stats.featuresBuilt}+
           </div>
-          <p className="text-gray-600 font-medium">Live Projects</p>
-          <p className="text-sm text-gray-500 mt-1">Deployed in production</p>
+          <p className="text-gray-600 font-medium">Git Commits</p>
+          <p className="text-sm text-gray-500 mt-1">Production-ready implementations</p>
         </div>
       </div>
     </section>
