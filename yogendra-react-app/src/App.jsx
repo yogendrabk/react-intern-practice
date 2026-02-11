@@ -13,6 +13,7 @@ import UsersPage from './pages/UsersPage';
 import UserDetail from './pages/UserDetail';
 import LoginPage from './pages/LoginPage';
 import Dashboard from './pages/Dashboard';
+import Settings from './pages/Settings';
 import Contact from './pages/Contact';
 import NotFound from './pages/NotFound';
 import PostsPage from './pages/PostsPage';
@@ -70,9 +71,12 @@ function AppContent({ isLoggedIn, setIsLoggedIn }) {
     { label: 'Apply', href: '/apply', active: location.pathname === '/apply' },
     { label: 'Patterns', href: '/patterns', active: location.pathname === '/patterns' },
     { label: 'Contact', href: '/contact', active: location.pathname === '/contact' },
-    isLoggedIn
-      ? { label: 'Dashboard', href: '/dashboard', active: location.pathname === '/dashboard' }
-      : { label: 'Login', href: '/login', active: location.pathname === '/login' },
+    ...(isLoggedIn ? [
+      { label: 'Dashboard', href: '/dashboard', active: location.pathname === '/dashboard' },
+      { label: 'Settings', href: '/settings', active: location.pathname === '/settings' }
+    ] : [
+      { label: 'Login', href: '/login', active: location.pathname === '/login' }
+    ]),
   ];
 
   const footerLinks = [
@@ -127,6 +131,14 @@ function AppContent({ isLoggedIn, setIsLoggedIn }) {
             element={
               <ProtectedRoute isLoggedIn={isLoggedIn}>
                 <Dashboard setIsLoggedIn={setIsLoggedIn} />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/settings" 
+            element={
+              <ProtectedRoute isLoggedIn={isLoggedIn}>
+                <Settings />
               </ProtectedRoute>
             } 
           />
