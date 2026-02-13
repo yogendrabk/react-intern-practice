@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Badge } from '../components/Badge';
 import { Card } from '../components/Card';
+import { Timeline } from '../components/ui/Timeline';
 
 // ============================================================================
 // About Page — Yogendra's Internship Journey
@@ -90,6 +91,66 @@ export function About() {
               </tbody>
             </table>
           </div>
+        </section>
+
+        {/* SECTION 2B: Internship Timeline with Timeline Component */}
+        <section className="mb-12">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6">Internship Timeline — Week by Week</h2>
+          
+          <Timeline
+            items={[
+              {
+                date: 'Week 1-2',
+                title: 'Foundation: HTML, CSS, Git',
+                description: 'Mastered semantic HTML, CSS layouts (Flexbox/Grid), Git version control. Built responsive designs and deployed first projects.',
+                icon: '🏗️',
+                color: 'blue',
+                badge: 'Completed'
+              },
+              {
+                date: 'Week 3',
+                title: 'JavaScript Fundamentals',
+                description: 'Deep dive into JavaScript: scope, closures, array methods, ES6+, async/await. Built helper functions and practiced problem-solving.',
+                icon: '⚙️',
+                color: 'purple',
+                badge: 'Completed'
+              },
+              {
+                date: 'Week 4-5',
+                title: 'React Basics & Hooks',
+                description: 'Learned React 18, functional components, JSX, props, useState, useEffect. Built first React applications and API integrations.',
+                icon: '⚛️',
+                color: 'blue',
+                badge: 'Completed'
+              },
+              {
+                date: 'Week 6-7',
+                title: 'Advanced React & Routing',
+                description: 'Mastered React Router v6, protected routes, authentication flow, Context API, custom hooks. Built full-featured applications.',
+                icon: '🔐',
+                color: 'green',
+                badge: 'Completed'
+              },
+              {
+                date: 'Week 8-10',
+                title: 'Advanced Patterns & Polish',
+                description: 'Implemented useReducer, design patterns (Compound, Render Props, HOC), animation, real-time updates. Created comprehensive portfolio.',
+                icon: '✨',
+                color: 'pink',
+                badge: 'Completed'
+              },
+              {
+                date: 'Week 11',
+                title: 'Final Defense & Deployment',
+                description: 'Complete project polish, final documentation, internship defense preparation, and deployment. Ready for professional development.',
+                icon: '🚀',
+                color: 'yellow',
+                badge: 'Current'
+              }
+            ]}
+            animated={true}
+            showLine={true}
+          />
         </section>
 
         {/* SECTION 3: Key Achievements */}
@@ -203,6 +264,97 @@ export function About() {
               </p>
             </div>
           </Card>
+        </section>
+
+        {/* SECTION 6: Internship Certificate */}
+        <section className="mb-12">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6">Internship Certificate</h2>
+          
+          <div className="bg-gradient-to-br from-yellow-50 via-white to-yellow-50 border-2 border-yellow-400 rounded-lg p-12 shadow-lg">
+            <div className="text-center">
+              {/* Certificate Header */}
+              <div className="mb-8">
+                <p className="text-sm font-semibold text-yellow-700 tracking-widest mb-2">CERTIFICATE OF COMPLETION</p>
+                <h3 className="text-4xl font-bold text-gray-900 mb-2">🏆 Official Recognition 🏆</h3>
+              </div>
+
+              {/* Certificate Body */}
+              <div className="bg-white rounded-lg p-8 mb-8">
+                <p className="text-lg text-gray-700 mb-6">This is to certify that</p>
+                <p className="text-3xl font-bold text-blue-600 mb-6">YOGENDRA BK</p>
+                <p className="text-lg text-gray-700 mb-8">
+                  Has successfully completed the <strong>11-Week React Web Development Internship</strong>
+                </p>
+                
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 py-6 border-t-2 border-b-2 border-gray-200">
+                  <div>
+                    <p className="text-2xl font-bold text-blue-600">50+</p>
+                    <p className="text-sm text-gray-600">Git Commits</p>
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-green-600">2000+</p>
+                    <p className="text-sm text-gray-600">Lines of Code</p>
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-purple-600">15+</p>
+                    <p className="text-sm text-gray-600">React Components</p>
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-pink-600">12+</p>
+                    <p className="text-sm text-gray-600">Full Pages</p>
+                  </div>
+                </div>
+
+                <p className="text-gray-700 mb-8">
+                  <strong>Duration:</strong> December 8, 2025 – February 19, 2026 (11 weeks)<br/>
+                  <strong>Company:</strong> Tech Yatra Private Limited, Kathmandu, Nepal<br/>
+                  <strong>Program:</strong> React Web Development Internship
+                </p>
+
+                <p className="text-gray-700 text-sm mb-6">
+                  During this internship, Yogendra demonstrated exceptional dedication, consistency, and technical growth. 
+                  The internship included comprehensive learning in HTML, CSS, JavaScript fundamentals, React ecosystem, 
+                  state management patterns, routing, authentication, API integration, and professional development practices.
+                </p>
+
+                <p className="text-gray-700 mb-8">
+                  <strong>Skills Mastered:</strong><br/>
+                  React 18 • React Hooks • React Router • Context API • Custom Hooks • Tailwind CSS • 
+                  JavaScript ES6+ • Responsive Design • Git/GitHub • Web APIs
+                </p>
+
+                <div className="flex justify-around my-8 py-6 border-t-2 border-gray-200">
+                  <div className="text-center">
+                    <p className="text-sm font-semibold text-gray-600 mb-2">Technical Lead</p>
+                    <p className="text-gray-700 font-bold">Tech Yatra Team</p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-sm font-semibold text-gray-600 mb-2">Date of Issue</p>
+                    <p className="text-gray-700 font-bold">19 February 2026</p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-sm font-semibold text-gray-600 mb-2">Status</p>
+                    <p className="text-green-600 font-bold">✅ COMPLETE</p>
+                  </div>
+                </div>
+
+                <p className="text-xs text-gray-500 italic">
+                  This certificate recognizes the successful completion of all program requirements and 
+                  demonstrates proficiency in React web development with professional-grade code quality standards.
+                </p>
+              </div>
+
+              {/* Certificate Footer */}
+              <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg p-4">
+                <p className="font-semibold mb-2">🎓 Ready for Professional Development</p>
+                <p className="text-sm">
+                  This certificate validates 11 weeks of intensive learning, practical project building, 
+                  and professional development. Yogendra is prepared for junior developer positions and 
+                  continuing education in advanced web development.
+                </p>
+              </div>
+            </div>
+          </div>
         </section>
 
         {/* CTA */}
