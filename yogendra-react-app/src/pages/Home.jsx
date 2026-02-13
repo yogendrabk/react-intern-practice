@@ -48,7 +48,7 @@ function useTypingEffect(words, speed = 100, deleteSpeed = 50, pauseDuration = 1
   return displayText;
 }
 
-export function Home() {
+export default function Home() {
   // Set document title
   useEffect(() => {
     document.title = "Home — React App";

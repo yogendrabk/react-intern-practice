@@ -4,6 +4,7 @@ import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { SearchModal } from './components/ui/SearchModal';
 import { BackToTop } from './components/ui/BackToTop';
+import { KeyboardShortcuts } from './components/ui/KeyboardShortcuts';
 import { ErrorBoundary } from './components/ui/ErrorBoundary';
 import Home from './pages/Home';
 import About from './pages/About';
@@ -93,6 +94,9 @@ function AppContent({ isLoggedIn, setIsLoggedIn }) {
 
       {/* BackToTop — Floating button to scroll back to top */}
       <BackToTop />
+
+      {/* KeyboardShortcuts — Modal showing available keyboard shortcuts (press '?') */}
+      <KeyboardShortcuts />
 
       {/* ErrorBoundary — Catch JS errors and show fallback UI */}
       <ErrorBoundary>
